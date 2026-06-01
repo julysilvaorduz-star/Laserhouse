@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laser House — Ingresar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --beige: #f5f0e8; --beige-dark: #ede6d8; --white: #ffffff;
+  --gold: #c4a35a; --gold-dark: #a8893e; --gold-light: #faf3e4; --gold-border: #e0c98a; --gold-pale: #fdf8ee;
+  --brown: #4a3820; --brown-mid: #6b5a3a; --brown-light: #8a7455;
+  --text-dark: #2c2318; --text-mid: #6b5a3a; --text-light: #a08c6e;
+  --border: rgba(107,90,58,0.15); --border-mid: rgba(107,90,58,0.25);
+  --red: #8a2020; --red-light: #faeaea; --red-border: #e8a09a;
+}
+html, body { height: 100%; font-family: 'DM Sans', sans-serif; background: var(--beige); color: var(--text-dark); }
+
+/* ── LAYOUT ── */
+.page { min-height: 100vh; display: grid; grid-template-columns: 1fr 420px; }
+
+/* ── PANEL IZQUIERDO ── */
+.left {
+  background: var(--brown); display: flex; flex-direction: column;
+  justify-content: space-between; padding: 48px 56px;
+  position: relative; overflow: hidden;
+}
+.left::before { content:''; position:absolute; top:-120px; right:-120px; width:400px; height:400px; border-radius:50%; background:rgba(196,163,90,.1); }
+.left::after  { content:''; position:absolute; bottom:-80px; left:-80px; width:300px; height:300px; border-radius:50%; background:rgba(196,163,90,.06); }
+.brand { position:relative; z-index:1; }
+.brand-name { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600; color:#e8d4b0; letter-spacing:1px; }
+.brand-tagline { font-size:12px; color:rgba(232,212,176,.5); margin-top:4px; letter-spacing:.5px; }
+.left-content { position:relative; z-index:1; }
+.left-headline { font-family:'Cormorant Garamond',serif; font-size:42px; font-weight:500; color:#e8d4b0; line-height:1.2; margin-bottom:20px; }
+.left-sub { font-size:14px; color:rgba(232,212,176,.6); line-height:1.7; max-width:340px; }
+.features { position:relative; z-index:1; display:flex; flex-direction:column; gap:12px; }
+.feature { display:flex; align-items:center; gap:10px; }
+.feature-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+.feature-text { font-size:12px; color:rgba(232,212,176,.55); }
+
+/* ── PANEL DERECHO ── */
+.right { background:var(--white); display:flex; align-items:center; justify-content:center; padding:40px 48px; }
+.login-box { width:100%; max-width:320px; }
+.login-title { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:500; color:var(--text-dark); margin-bottom:4px; }
+.login-sub { font-size:13px; color:var(--text-light); margin-bottom:32px; }
+
+/* ── FORM ── */
+.field { display:flex; flex-direction:column; gap:5px; margin-bottom:16px; }
+label { font-size:11px; font-weight:500; color:var(--text-mid); letter-spacing:.3px; }
+.input-wrap { position:relative; }
+input[type="email"], input[type="password"], input[type="text"] {
+  width:100%; padding:11px 14px; font-size:13px; font-family:'DM Sans',sans-serif;
+  color:var(--text-dark); background:var(--beige); border:1px solid var(--border-mid);
+  border-radius:10px; outline:none; transition:border-color .15s, background .15s;
+}
+input:focus { border-color:var(--gold); background:var(--white); }
+input::placeholder { color:var(--text-light); }
+.pw-input { padding-right:40px !important; }
+.eye-btn { position:absolute; right:12px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:var(--text-light); display:flex; align-items:center; padding:0; transition:color .15s; }
+.eye-btn:hover { color:var(--brown); }
+.eye-btn svg { width:16px; height:16px; }
+.forgot { text-align:right; margin-top:-8px; margin-bottom:20px; }
+.forgot a { font-size:11px; color:var(--gold-dark); text-decoration:none; }
+.forgot a:hover { color:var(--brown); }
+
+/* ── BOTONES ── */
+.btn-main { width:100%; padding:13px; background:var(--brown); color:#e8d4b0; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; border:none; border-radius:10px; cursor:pointer; letter-spacing:.3px; transition:background .15s, transform .1s; margin-bottom:16px; }
+.btn-main:hover { background:#5a4828; }
+.btn-main:active { transform:scale(.98); }
+.divider { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+.divider-line { flex:1; height:1px; background:var(--border); }
+.divider-text { font-size:11px; color:var(--text-light); }
+.btn-alt { width:100%; padding:11px; background:transparent; color:var(--text-mid); font-family:'DM Sans',sans-serif; font-size:12px; border:1px solid var(--border-mid); border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:background .15s, border-color .15s; margin-bottom:10px; }
+.btn-alt:hover { background:var(--beige-dark); border-color:var(--gold); color:var(--brown); }
+.btn-alt svg { width:15px; height:15px; }
+
+/* ── ALERTAS ── */
+.alert { display:none; padding:10px 12px; border-radius:8px; font-size:12px; margin-bottom:16px; align-items:center; gap:7px; }
+.alert.show { display:flex; }
+.alert-err { background:var(--red-light); color:var(--red); border:1px solid var(--red-border); }
+.alert-ok  { background:var(--gold-light); color:var(--brown-mid); border:1px solid var(--gold-border); }
+.alert svg { width:14px; height:14px; flex-shrink:0; }
+
+/* ── PIN ── */
+.pin-screen { display:none; flex-direction:column; align-items:center; gap:0; }
+.pin-screen.show { display:flex; }
+.pin-user { text-align:center; margin-bottom:24px; }
+.pin-avatar { width:56px; height:56px; border-radius:50%; background:var(--gold-light); color:var(--brown-mid); font-size:18px; font-weight:500; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; border:2px solid rgba(196,163,90,.3); }
+.pin-name { font-size:14px; font-weight:500; color:var(--text-dark); }
+.pin-role { font-size:11px; color:var(--text-light); margin-top:2px; }
+.pin-dots { display:flex; gap:12px; margin-bottom:8px; }
+.pin-dot { width:14px; height:14px; border-radius:50%; border:2px solid var(--border-mid); transition:background .15s, border-color .15s; }
+.pin-dot.filled { background:var(--brown); border-color:var(--brown); }
+.pin-hint { font-size:11px; color:var(--text-light); margin-bottom:24px; }
+.pin-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; width:100%; margin-bottom:16px; }
+.pin-key { background:var(--beige); border:1px solid var(--border); border-radius:10px; padding:14px; font-size:18px; font-weight:400; color:var(--text-dark); cursor:pointer; text-align:center; font-family:'Cormorant Garamond',serif; transition:background .1s; }
+.pin-key:hover { background:var(--beige-dark); }
+.pin-key:active { background:var(--gold-light); }
+.pin-key.del { font-family:'DM Sans',sans-serif; font-size:13px; color:var(--text-mid); }
+
+/* ── PANTALLAS ── */
+.login-form.hide { display:none; }
+.success-screen { display:none; flex-direction:column; align-items:center; text-align:center; }
+.success-screen.show { display:flex; }
+.success-icon { width:64px; height:64px; border-radius:50%; background:var(--gold-light); border:2px solid rgba(196,163,90,.4); display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
+.success-icon svg { width:28px; height:28px; color:var(--brown-mid); }
+.success-title { font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--text-dark); margin-bottom:6px; }
+.success-sub { font-size:12px; color:var(--text-light); margin-bottom:20px; line-height:1.6; }
+
+/* ── TAGS DE ROL ── */
+.role-tag { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:500; margin-top:6px; }
+.tag-gerente  { background:var(--gold-light); color:var(--brown-mid); border:1px solid var(--gold-border); }
+.tag-admin    { background:var(--beige-dark); color:var(--brown-mid); border:1px solid #d0b890; }
+.tag-empleado { background:var(--beige); color:var(--brown-light); border:1px solid var(--border-mid); }
+
+/* ── MÓDULOS ── */
+.module-list { width:100%; display:flex; flex-direction:column; gap:6px; margin-bottom:24px; }
+.module-row { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:8px; font-size:12px; }
+.module-row.ok     { background:var(--gold-light); color:var(--brown-mid); border:1px solid var(--gold-border); }
+.module-row.locked { background:var(--red-light); color:var(--red); border:1px solid var(--red-border); }
+.module-row svg { width:14px; height:14px; flex-shrink:0; }
+.module-row span { flex:1; text-align:left; }
+.btn-enter { width:100%; padding:13px; background:var(--brown); color:#e8d4b0; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; border:none; border-radius:10px; cursor:pointer; transition:background .15s; margin-bottom:12px; }
+.btn-enter:hover { background:#5a4828; }
+.btn-back { background:none; border:none; font-size:12px; color:var(--text-light); cursor:pointer; font-family:'DM Sans',sans-serif; }
+.btn-back:hover { color:var(--brown); }
+
+/* ── RESPONSIVE ── */
+@media (max-width:700px) {
+  .page { grid-template-columns:1fr; }
+  .left { display:none; }
+  .right { padding:32px 24px; min-height:100vh; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- PANEL IZQUIERDO -->
+  <div class="left">
+    <div class="brand">
+      <div class="brand-name">Laser House</div>
+      <div class="brand-tagline">Sistema de gestión integral</div>
+    </div>
+    <div class="left-content">
+      <div class="left-headline">Toda tu<br>clínica en<br>un solo lugar</div>
+      <div class="left-sub">Controla empleados, pacientes, ventas, metas y seguimientos desde cualquier dispositivo, en tiempo real.</div>
+    </div>
+    <div class="features">
+      <div class="feature"><div class="feature-dot"></div><div class="feature-text">Gestión de sedes Bogotá y Pereira</div></div>
+      <div class="feature"><div class="feature-dot"></div><div class="feature-text">Control de asistencia por QR</div></div>
+      <div class="feature"><div class="feature-dot"></div><div class="feature-text">Seguimiento de pacientes con semáforo</div></div>
+      <div class="feature"><div class="feature-dot"></div><div class="feature-text">Responding — agendamiento virtual</div></div>
+      <div class="feature"><div class="feature-dot"></div><div class="feature-text">Finanzas y reportes por sede</div></div>
+    </div>
+  </div>
+
+  <!-- PANEL DERECHO -->
+  <div class="right">
+    <div class="login-box">
+
+      <!-- FORMULARIO -->
+      <div class="login-form" id="form-screen">
+        <div class="login-title">Bienvenida</div>
+        <div class="login-sub">Ingresa con tu cuenta para continuar</div>
+        <div class="alert alert-err" id="err-msg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Correo o contraseña incorrectos
+        </div>
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" placeholder="tu@laserhouse.co" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <div class="input-wrap">
+            <input type="password" id="password" class="pw-input" placeholder="••••••••" autocomplete="current-password">
+            <button class="eye-btn" onclick="togglePw()" type="button" aria-label="Ver contraseña">
+              <svg id="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="forgot"><a href="#" onclick="return false">¿Olvidaste tu contraseña?</a></div>
+        <button class="btn-main" onclick="doLogin()">Ingresar</button>
+        <div class="divider"><div class="divider-line"></div><div class="divider-text">o ingresa con</div><div class="divider-line"></div></div>
+        <button class="btn-alt" onclick="showPin()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="4" height="4" rx="1"/><rect x="10" y="3" width="4" height="4" rx="1"/><rect x="17" y="3" width="4" height="4" rx="1"/><rect x="3" y="10" width="4" height="4" rx="1"/><rect x="10" y="10" width="4" height="4" rx="1"/><rect x="17" y="10" width="4" height="4" rx="1"/><rect x="3" y="17" width="4" height="4" rx="1"/><rect x="10" y="17" width="4" height="4" rx="1"/></svg>
+          Ingresar con PIN de 4 dígitos
+        </button>
+        <button class="btn-alt" onclick="loginDemo()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Huella / Face ID
+        </button>
+      </div>
+
+      <!-- PIN -->
+      <div class="pin-screen" id="pin-screen">
+        <div class="pin-user">
+          <div class="pin-avatar" id="pin-av">--</div>
+          <div class="pin-name"  id="pin-nm">—</div>
+          <div class="pin-role"  id="pin-rl">—</div>
+        </div>
+        <div class="pin-dots">
+          <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>
+          <div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>
+        </div>
+        <div class="pin-hint">Ingresa tu PIN de 4 dígitos</div>
+        <div class="alert alert-err" id="pin-err" style="width:100%;margin-bottom:12px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          PIN incorrecto. Intenta de nuevo.
+        </div>
+        <div class="pin-grid">
+          <button class="pin-key" onclick="addPin('1')">1</button><button class="pin-key" onclick="addPin('2')">2</button><button class="pin-key" onclick="addPin('3')">3</button>
+          <button class="pin-key" onclick="addPin('4')">4</button><button class="pin-key" onclick="addPin('5')">5</button><button class="pin-key" onclick="addPin('6')">6</button>
+          <button class="pin-key" onclick="addPin('7')">7</button><button class="pin-key" onclick="addPin('8')">8</button><button class="pin-key" onclick="addPin('9')">9</button>
+          <button class="pin-key" onclick="addPin('0')" style="grid-column:2">0</button>
+          <button class="pin-key del" onclick="delPin()">← borrar</button>
+        </div>
+        <button class="btn-back" onclick="backToForm()">← Volver al login</button>
+      </div>
+
+      <!-- ÉXITO -->
+      <div class="success-screen" id="success-screen">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="success-title">¡Bienvenida!</div>
+        <div class="success-sub">Hola, <strong id="su-name">—</strong><br><span id="su-role-tag"></span></div>
+        <div class="module-list" id="module-list"></div>
+        <button class="btn-enter" onclick="irAlHome()">Entrar al sistema →</button>
+        <button class="btn-back" onclick="backToForm()">Cerrar sesión</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+var SVG_OK     = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>';
+var SVG_LOCKED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>';
+
+var USERS = {
+  'laupineda@laserhouse.co': {
+    name:'Laura Pineda', initials:'LP', pw:'0311', pin:'0311',
+    role:'Gerente', roleTag:'tag-gerente',
+    sedes:['Bogotá','Pereira'],
+    modules:[
+      {label:'Asistencia',ok:true},{label:'Pacientes y seguimientos',ok:true},
+      {label:'Tareas y bitácora',ok:true},{label:'Responding',ok:true},
+      {label:'Metas y gamificación',ok:true},{label:'Finanzas completas',ok:true},
+      {label:'Gastos por sede',ok:true},{label:'Ingresos del mes',ok:true},
+      {label:'Compras e insumos',ok:true},{label:'Perfiles y permisos',ok:true}
+    ]
+  },
+  'juliansilva@laserhouse.co': {
+    name:'Julián Silva', initials:'JS', pw:'0311', pin:'0311',
+    role:'Gerente', roleTag:'tag-gerente',
+    sedes:['Bogotá','Pereira'],
+    modules:[
+      {label:'Asistencia',ok:true},{label:'Pacientes y seguimientos',ok:true},
+      {label:'Tareas y bitácora',ok:true},{label:'Responding',ok:true},
+      {label:'Metas y gamificación',ok:true},{label:'Finanzas completas',ok:true},
+      {label:'Gastos por sede',ok:true},{label:'Ingresos del mes',ok:true},
+      {label:'Compras e insumos',ok:true},{label:'Perfiles y permisos',ok:true}
+    ]
+  },
+  'angie@laserhouse.co': {
+    name:'Angie', initials:'AN', pw:'1234', pin:'1234',
+    role:'Administradora jefe', roleTag:'tag-admin',
+    sedes:['Bogotá','Pereira'],
+    modules:[
+      {label:'Asistencia',ok:true},{label:'Pacientes y seguimientos',ok:true},
+      {label:'Tareas y bitácora',ok:true},{label:'Responding',ok:true},
+      {label:'Metas y gamificación',ok:true},{label:'Finanzas completas',ok:true},
+      {label:'Gastos por sede',ok:true},{label:'Ingresos del mes',ok:true},
+      {label:'Compras e insumos',ok:true},{label:'Perfiles y permisos',ok:true}
+    ]
+  },
+  'lorenacaro@laserhouse.co': {
+    name:'Lorena Caro', initials:'LC', pw:'1234', pin:'1234',
+    role:'Empleada', roleTag:'tag-empleado',
+    sedes:['Bogotá'],
+    modules:[
+      {label:'Asistencia',ok:true},{label:'Pacientes y seguimientos',ok:true},
+      {label:'Tareas y bitácora',ok:true},{label:'Responding',ok:true},
+      {label:'Metas y gamificación',ok:true},{label:'Finanzas',ok:false},
+      {label:'Gastos por sede',ok:false},{label:'Ingresos del mes',ok:false},
+      {label:'Compras e insumos',ok:true},{label:'Perfiles y permisos',ok:false}
+    ]
+  },
+  'kellynieto@laserhouse.co': {
+    name:'Kelly Nieto', initials:'KN', pw:'1234', pin:'1234',
+    role:'Empleada', roleTag:'tag-empleado',
+    sedes:['Pereira'],
+    modules:[
+      {label:'Asistencia',ok:true},{label:'Pacientes y seguimientos',ok:true},
+      {label:'Tareas y bitácora',ok:true},{label:'Responding',ok:false},
+      {label:'Metas y gamificación',ok:true},{label:'Finanzas',ok:false},
+      {label:'Gastos por sede',ok:false},{label:'Ingresos del mes',ok:false},
+      {label:'Compras e insumos',ok:true},{label:'Perfiles y permisos',ok:false}
+    ]
+  },
+  'angelalinares@laserhouse.co': {
+    name:'Ángela Linares', initials:'AL', pw:'1234', pin:'1234',
+    role:'Empleada', roleTag:'tag-empleado',
+    sedes:['Pereira'],
+    modules:[
+      {label:'Asistencia',ok:true},{label:'Pacientes y seguimientos',ok:true},
+      {label:'Tareas y bitácora',ok:true},{label:'Responding',ok:false},
+      {label:'Metas y gamificación',ok:true},{label:'Finanzas',ok:false},
+      {label:'Gastos por sede',ok:false},{label:'Ingresos del mes',ok:false},
+      {label:'Compras e insumos',ok:true},{label:'Perfiles y permisos',ok:false}
+    ]
+  }
+};
+
+var pin = ''; var pwVisible = false; var currentUser = null;
+
+function renderSuccess(user) {
+  document.getElementById('su-name').textContent = user.name;
+  var tag = document.getElementById('su-role-tag');
+  tag.className = 'role-tag ' + user.roleTag;
+  tag.textContent = user.role + (user.sedes.length===1 ? ' · Sede '+user.sedes[0] : ' · Acceso a todas las sedes');
+  var list = document.getElementById('module-list');
+  list.innerHTML = '';
+  user.modules.forEach(function(m) {
+    var div = document.createElement('div');
+    div.className = 'module-row ' + (m.ok ? 'ok' : 'locked');
+    div.innerHTML = (m.ok ? SVG_OK : SVG_LOCKED) + '<span>' + m.label + (m.ok ? '' : ' — sin acceso') + '</span>';
+    list.appendChild(div);
+  });
+  document.getElementById('form-screen').classList.add('hide');
+  document.getElementById('pin-screen').classList.remove('show');
+  document.getElementById('success-screen').classList.add('show');
+}
+
+function guardarSesion(email, user) {
+  sessionStorage.setItem('ap_email',    email);
+  sessionStorage.setItem('ap_name',     user.name);
+  sessionStorage.setItem('ap_role',     user.role);
+  sessionStorage.setItem('ap_initials', user.initials);
+  /* Para empleadas con una sola sede, guardarla directo */
+  if (user.sedes.length === 1) {
+    sessionStorage.setItem('ap_sede', user.sedes[0]);
+  } else {
+    sessionStorage.removeItem('ap_sede');
+  }
+}
+
+function irAlHome() { window.location.href = 'aestheticpro-home.html'; }
+
+function togglePw() {
+  var inp = document.getElementById('password');
+  pwVisible = !pwVisible;
+  inp.type = pwVisible ? 'text' : 'password';
+  document.getElementById('eye-icon').innerHTML = pwVisible
+    ? '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+    : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+}
+
+function doLogin() {
+  var email = document.getElementById('email').value.trim().toLowerCase();
+  var pw    = document.getElementById('password').value;
+  if (!email || !pw) { showErr('Completa correo y contraseña.'); return; }
+  var user = USERS[email];
+  if (user && pw === user.pw) {
+    currentUser = user;
+    guardarSesion(email, user);
+    renderSuccess(user);
+  } else {
+    showErr('Correo o contraseña incorrectos.');
+  }
+}
+
+function loginDemo() {
+  var email = 'laupineda@laserhouse.co';
+  currentUser = USERS[email];
+  guardarSesion(email, currentUser);
+  renderSuccess(currentUser);
+}
+
+function showErr(msg) {
+  var el = document.getElementById('err-msg');
+  el.childNodes[el.childNodes.length-1].textContent = ' '+msg;
+  el.classList.add('show');
+  setTimeout(function(){ el.classList.remove('show'); }, 3500);
+}
+
+function showPin() {
+  var email = document.getElementById('email').value.trim().toLowerCase();
+  var user  = USERS[email];
+  if (user) {
+    currentUser = user;
+    document.getElementById('pin-av').textContent = user.initials;
+    document.getElementById('pin-nm').textContent = user.name;
+    document.getElementById('pin-rl').textContent = user.role;
+  } else {
+    document.getElementById('pin-av').textContent = '--';
+    document.getElementById('pin-nm').textContent = 'Escribe tu correo primero';
+    document.getElementById('pin-rl').textContent = '';
+  }
+  document.getElementById('form-screen').classList.add('hide');
+  document.getElementById('pin-screen').classList.add('show');
+  pin = ''; updateDots();
+}
+
+function addPin(d) {
+  if (pin.length >= 4) return;
+  pin += d; updateDots();
+  if (pin.length === 4) {
+    setTimeout(function() {
+      if (currentUser && pin === currentUser.pin) {
+        var emailPin = document.getElementById('email').value.trim().toLowerCase() || 'laupineda@laserhouse.co';
+        guardarSesion(emailPin, currentUser);
+        renderSuccess(currentUser);
+      } else {
+        document.getElementById('pin-err').classList.add('show');
+        pin = ''; updateDots();
+        setTimeout(function(){ document.getElementById('pin-err').classList.remove('show'); }, 2500);
+      }
+    }, 200);
+  }
+}
+
+function delPin() {
+  pin = pin.slice(0,-1); updateDots();
+  document.getElementById('pin-err').classList.remove('show');
+}
+
+function updateDots() {
+  for (var i=0;i<4;i++) {
+    var d = document.getElementById('d'+i);
+    if (d) { i<pin.length ? d.classList.add('filled') : d.classList.remove('filled'); }
+  }
+}
+
+function backToForm() {
+  document.getElementById('form-screen').classList.remove('hide');
+  document.getElementById('pin-screen').classList.remove('show');
+  document.getElementById('success-screen').classList.remove('show');
+  document.getElementById('err-msg').classList.remove('show');
+  document.getElementById('pin-err').classList.remove('show');
+  pin = ''; updateDots();
+}
+
+document.getElementById('password').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+document.getElementById('email').addEventListener('keydown', function(e){ if(e.key==='Enter') document.getElementById('password').focus(); });
+</script>
+</body>
+</html>
