@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laser House — Tareas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f5f0e8;--cream-dark:#ede6d8;--cream-deep:#e0d5c0;--white:#fff;
+  --gold:#c4a35a;--gold-dark:#a8893e;--gold-light:#faf3e4;--gold-border:#e0c98a;--gold-pale:#fdf8ee;
+  --brown:#4a3820;--brown-mid:#6b5a3a;--text-dark:#2c2318;--text-mid:#6b5a3a;--text-light:#a08c6e;
+  --border:rgba(107,90,58,.12);--border-mid:rgba(107,90,58,.22);--border-gold:rgba(196,163,90,.35);
+  --green:#2d6a2d;--green-l:#e8f5e8;--green-b:#a8d8a8;
+  --yellow:#8a6a00;--yellow-l:#fffbe6;--yellow-b:#f0d060;
+  --orange:#b84a00;--orange-l:#fff0e6;--orange-b:#f0a060;
+  --red:#8a2020;--red-l:#faeaea;--red-b:#e8a09a;
+  --blue:#1a3a6a;--blue-l:#e8eef8;--blue-b:#a0b8e0;
+  --purple:#5a2a8a;--purple-l:#f0eafa;--purple-b:#c0a0e0;
+}
+html,body{min-height:100%;font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-dark);font-size:13px}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--white);border-bottom:1px solid var(--border-gold);padding:0 22px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.back-btn{display:flex;align-items:center;gap:6px;color:var(--text-mid);font-size:12px;cursor:pointer;padding:6px 10px;border-radius:8px;border:.5px solid var(--border-mid);background:transparent;font-family:'DM Sans',sans-serif;transition:all .15s}
+.back-btn:hover{background:var(--gold-pale);border-color:var(--gold);color:var(--brown)}
+.tb-brand{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--text-dark)}
+.tb-right{display:flex;align-items:center;gap:9px}
+.sede-pill{display:flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;color:var(--gold-dark);background:var(--gold-pale);border:1px solid var(--gold-border)}
+.sede-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.tb-av{width:30px;height:30px;border-radius:50%;background:var(--gold-light);border:1.5px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--brown)}
+.tb-name{font-size:12px;color:var(--text-mid);font-weight:500}
+
+/* ── LAYOUT ── */
+.page{max-width:1020px;margin:0 auto;padding:20px 18px 60px}
+.sec{font-size:10px;font-weight:500;color:var(--text-light);letter-spacing:.8px;text-transform:uppercase;margin:20px 0 11px;display:flex;align-items:center;gap:8px}
+.sec::after{content:'';flex:1;height:.5px;background:var(--border-gold)}
+.sec:first-child{margin-top:0}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:14px}
+.g1{margin-bottom:12px}
+.card{background:var(--white);border:1px solid var(--border-gold);border-radius:14px;padding:15px}
+.ct{font-size:12px;font-weight:500;color:var(--text-dark);margin-bottom:11px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.ct-s{font-size:10px;color:var(--text-light)}
+.dv{border:none;border-top:.5px solid var(--border-gold);margin:11px 0}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.fg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.fld{margin-bottom:9px}
+.lbl{font-size:10px;color:var(--text-mid);margin-bottom:3px;display:block;font-weight:500}
+.inp{width:100%;border:1px solid var(--border-mid);border-radius:8px;padding:8px 10px;font-size:12px;background:var(--cream);color:var(--text-dark);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
+.inp:focus{border-color:var(--gold);background:var(--white)}
+.sel{width:100%;border:1px solid var(--border-mid);border-radius:8px;padding:7px 10px;font-size:12px;background:var(--cream);color:var(--text-dark);font-family:'DM Sans',sans-serif;outline:none}
+.sel:focus{border-color:var(--gold)}
+.ta{min-height:55px;resize:vertical}
+.sav{background:var(--brown);color:#e8d4b0;border:none;border-radius:9px;padding:10px;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;font-weight:500;width:100%;margin-top:3px;transition:background .15s}
+.sav:hover{background:#5a4828}
+.btn-sm{padding:5px 12px;font-size:11px;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .15s}
+.btn-gold{background:var(--gold);color:#fff}.btn-gold:hover{background:var(--gold-dark)}
+.btn-outline{background:transparent;color:var(--brown-mid);border:1px solid var(--gold-border)}.btn-outline:hover{background:var(--cream-dark)}
+
+/* ── KPI CARDS ── */
+.kc{background:var(--cream);border:1px solid var(--border-gold);border-radius:12px;padding:12px 14px;position:relative;overflow:hidden}
+.kc-accent{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
+.kv{font-size:24px;font-weight:500;line-height:1;font-family:'Cormorant Garamond',serif;color:var(--text-dark)}
+.kl{font-size:10px;color:var(--text-light);margin-top:4px}
+.kd{font-size:10px;margin-top:3px}
+.kc-g .kv{color:var(--green)}.kc-y .kv{color:var(--yellow)}.kc-o .kv{color:var(--orange)}.kc-r .kv{color:var(--red)}.kc-b .kv{color:var(--blue)}
+
+/* ── CUMPLIMIENTO BAR ── */
+.cumpl-bar{height:10px;border-radius:5px;background:var(--cream-deep);overflow:hidden;margin-top:6px;margin-bottom:3px}
+.cumpl-fill{height:100%;border-radius:5px;background:var(--green);transition:width .5s}
+.cumpl-pct{font-size:11px;font-weight:500;color:var(--green)}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:3px;background:var(--cream-dark);padding:3px;border-radius:9px;width:fit-content;margin-bottom:12px}
+.tab{padding:5px 14px;font-size:11px;border-radius:7px;cursor:pointer;color:var(--text-light);border:none;background:transparent;font-family:'DM Sans',sans-serif}
+.tab.on{background:var(--white);color:var(--brown);font-weight:500;border:.5px solid var(--border-gold)}
+
+/* ── TAREA ROW ── */
+.tarea-row{display:flex;align-items:flex-start;gap:10px;padding:12px;border-radius:11px;background:var(--cream);margin-bottom:6px;transition:all .15s;border:1px solid transparent}
+.tarea-row:hover{border-color:var(--gold-border);background:var(--gold-pale)}
+.tarea-row.vencida{background:var(--red-l);border-color:var(--red-b)}
+.tarea-row.completada{opacity:.6}
+.tarea-row.en-revision{background:var(--blue-l);border-color:var(--blue-b)}
+
+/* Checkbox circular */
+.chk-wrap{width:22px;height:22px;border-radius:50%;border:2px solid var(--border-mid);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all .15s}
+.chk-wrap.done{background:var(--green);border-color:var(--green)}
+.chk-wrap.done svg{display:block}
+.chk-wrap svg{display:none;width:12px;height:12px;color:#fff}
+
+.tarea-body{flex:1;min-width:0}
+.tarea-titulo{font-size:12px;font-weight:500;color:var(--text-dark);margin-bottom:3px}
+.tarea-titulo.done{text-decoration:line-through;color:var(--text-light)}
+.tarea-desc{font-size:11px;color:var(--text-light);margin-bottom:5px;line-height:1.4}
+.tarea-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tarea-asignado{font-size:10px;color:var(--text-light)}
+.tarea-asignado strong{color:var(--text-mid)}
+
+/* Prioridad */
+.prio{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:500}
+.prio-a{background:#faeaea;color:var(--red);border:1px solid var(--red-b)}
+.prio-m{background:var(--yellow-l);color:var(--yellow);border:1px solid var(--yellow-b)}
+.prio-b{background:var(--green-l);color:var(--green);border:1px solid var(--green-b)}
+
+/* Estado tarea */
+.est-t{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:500}
+.et-p{background:var(--cream-deep);color:var(--text-mid);border:1px solid var(--border-mid)}
+.et-e{background:var(--blue-l);color:var(--blue);border:1px solid var(--blue-b)}
+.et-r{background:var(--purple-l);color:var(--purple);border:1px solid var(--purple-b)}
+.et-c{background:var(--green-l);color:var(--green);border:1px solid var(--green-b)}
+.et-v{background:var(--red-l);color:var(--red);border:1px solid var(--red-b)}
+
+/* Fecha límite */
+.fecha-lim{font-size:10px;display:inline-flex;align-items:center;gap:3px}
+.fecha-ok{color:var(--text-light)}
+.fecha-prox{color:var(--orange)}
+.fecha-venc{color:var(--red);font-weight:500}
+
+/* Acciones tarea */
+.tarea-actions{display:flex;gap:5px;margin-left:auto;flex-shrink:0}
+.act-btn{width:28px;height:28px;border-radius:7px;border:.5px solid var(--border-mid);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-light);transition:all .15s}
+.act-btn:hover{background:var(--gold-pale);border-color:var(--gold);color:var(--brown)}
+
+/* Av empleado */
+.emp-av{width:22px;height:22px;border-radius:50%;background:var(--gold-light);color:var(--brown);border:1px solid var(--gold-border);display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;flex-shrink:0}
+
+/* FORM NUEVA TAREA */
+.form-wrap{display:none;background:var(--cream);border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid var(--border-gold)}
+.form-wrap.show{display:block}
+
+/* MODAL */
+.mbg{display:none;position:fixed;inset:0;background:rgba(44,35,24,.45);z-index:200;align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto}
+.mbg.show{display:flex}
+.modal{background:var(--white);border-radius:16px;border:1px solid var(--border-gold);padding:22px;max-width:480px;width:100%;margin-bottom:30px}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;margin-bottom:3px;color:var(--text-dark)}
+.modal-sub{font-size:11px;color:var(--text-light);margin-bottom:14px}
+.close-btn{width:28px;height:28px;border-radius:50%;border:.5px solid var(--border-mid);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:14px}
+.close-btn:hover{background:var(--cream-dark)}
+.det-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:.5px solid var(--border-gold)}
+.det-row:last-child{border-bottom:none}
+.det-l{font-size:11px;color:var(--text-light)}
+.det-v{font-size:12px;font-weight:500;color:var(--text-dark);text-align:right}
+
+/* SEARCH EMPLEADO */
+.emp-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.emp-chip{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;cursor:pointer;border:1px solid var(--border-mid);background:var(--cream);color:var(--text-mid);transition:all .15s}
+.emp-chip:hover,.emp-chip.on{background:var(--gold-pale);border-color:var(--gold);color:var(--brown)}
+
+@media(max-width:640px){
+  .g2,.g4{grid-template-columns:1fr 1fr}
+  .tb-name{display:none}
+  .fg2,.fg3{grid-template-columns:1fr}
+  .tarea-actions{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="back-btn" onclick="window.location.href='aestheticpro-home.html'">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Inicio
+    </button>
+    <div class="tb-brand">Tareas</div>
+  </div>
+  <div class="tb-right">
+    <div class="sede-pill"><div class="sede-dot"></div><span id="tb-sede">Bogotá</span></div>
+    <div class="tb-av" id="tb-av">LC</div>
+    <div class="tb-name" id="tb-name">Lorena Caro</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- KPIs -->
+  <div class="g4" id="kpi-grid"></div>
+
+  <!-- Cumplimiento -->
+  <div class="card g1" id="cumpl-card">
+    <div class="ct">Porcentaje de cumplimiento</div>
+    <div class="cumpl-bar"><div class="cumpl-fill" id="cumpl-fill" style="width:0%"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+      <div style="font-size:11px;color:var(--text-light)" id="cumpl-detalle">—</div>
+      <div class="cumpl-pct" id="cumpl-pct">0%</div>
+    </div>
+  </div>
+
+  <!-- Tabs filtro -->
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:4px">
+    <div class="tabs">
+      <button class="tab on"  onclick="setTab('activas',this)">Activas</button>
+      <button class="tab"     onclick="setTab('completadas',this)">Completadas</button>
+      <button class="tab"     onclick="setTab('vencidas',this)">Vencidas</button>
+      <button class="tab"     onclick="setTab('todas',this)">Todas</button>
+    </div>
+    <div style="display:flex;gap:6px">
+      <button class="btn-sm btn-gold" id="btn-nueva-tarea" onclick="abrirFormNueva()">+ Delegar tarea</button>
+    </div>
+  </div>
+
+  <!-- Filtro por empleado (solo gerentes) -->
+  <div id="filtro-empleado" style="display:none;margin-bottom:10px">
+    <div style="font-size:10px;color:var(--text-light);margin-bottom:6px">Filtrar por persona:</div>
+    <div class="emp-chips" id="emp-chips"></div>
+  </div>
+
+  <!-- FORM NUEVA TAREA -->
+  <div class="form-wrap" id="form-nueva">
+    <div style="font-size:12px;font-weight:500;color:var(--text-dark);margin-bottom:12px">Delegar nueva tarea</div>
+    <div class="fg2">
+      <div class="fld"><label class="lbl">Título de la tarea *</label><input class="inp" type="text" id="nt-titulo" placeholder="Ej: Confirmar citas de la semana"></div>
+      <div class="fld"><label class="lbl">Asignar a *</label>
+        <select class="sel" id="nt-asignado">
+          <option value="">Seleccionar persona...</option>
+        </select>
+      </div>
+      <div class="fld"><label class="lbl">Prioridad *</label>
+        <select class="sel" id="nt-prioridad">
+          <option value="alta">Alta</option>
+          <option value="media" selected>Media</option>
+          <option value="baja">Baja</option>
+        </select>
+      </div>
+      <div class="fld"><label class="lbl">Fecha límite *</label><input class="inp" type="date" id="nt-fecha"></div>
+    </div>
+    <div class="fld"><label class="lbl">Descripción / instrucciones</label><textarea class="inp ta" id="nt-desc" placeholder="Explica qué debe hacer y cómo..."></textarea></div>
+    <div style="display:flex;gap:8px">
+      <button class="sav" onclick="guardarTarea()">Delegar tarea</button>
+      <button class="btn-sm btn-outline" style="padding:10px 16px" onclick="cerrarFormNueva()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- LISTA TAREAS -->
+  <div id="lista-tareas"></div>
+
+  <!-- SECCIÓN: mis tareas como gerente/admin -->
+  <div id="sec-mis-tareas" style="display:none">
+    <div class="sec">Mis tareas personales</div>
+    <div id="lista-mis-tareas"></div>
+  </div>
+
+</div>
+
+<!-- MODAL DETALLE TAREA -->
+<div class="mbg" id="modal-det">
+  <div class="modal">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px">
+      <div>
+        <div class="modal-title" id="det-titulo">—</div>
+        <div class="modal-sub"   id="det-sub">—</div>
+      </div>
+      <button class="close-btn" onclick="cerrarModal()">✕</button>
+    </div>
+    <div id="det-pills" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px"></div>
+    <div id="det-rows"></div>
+    <div id="det-desc-wrap" style="display:none">
+      <div class="dv"></div>
+      <div style="font-size:10px;color:var(--text-light);margin-bottom:5px">Descripción</div>
+      <div id="det-desc" style="font-size:12px;color:var(--text-dark);line-height:1.5;background:var(--cream);border-radius:8px;padding:10px"></div>
+    </div>
+    <div class="dv"></div>
+    <!-- Cambiar estado (empleado puede marcar En proceso / Completada) -->
+    <div id="det-acciones" style="display:none">
+      <div style="font-size:11px;font-weight:500;color:var(--text-dark);margin-bottom:8px">Actualizar estado</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="btn-sm" style="background:var(--blue-l);color:var(--blue);border:1px solid var(--blue-b)" onclick="cambiarEstado('en_proceso')">Marcar en proceso</button>
+        <button class="btn-sm btn-gold" onclick="cambiarEstado('completada')">Marcar completada</button>
+        <button class="btn-sm" style="background:var(--purple-l);color:var(--purple);border:1px solid var(--purple-b)" onclick="cambiarEstado('en_revision')">Enviar a revisión</button>
+      </div>
+    </div>
+    <!-- Aprobar / rechazar (solo gerentes) -->
+    <div id="det-aprobar" style="display:none">
+      <div style="font-size:11px;font-weight:500;color:var(--text-dark);margin-bottom:8px">Aprobar o rechazar</div>
+      <div style="display:flex;gap:7px">
+        <button class="btn-sm btn-gold" onclick="cambiarEstado('completada')">Aprobar tarea</button>
+        <button class="btn-sm" style="background:var(--red-l);color:var(--red);border:1px solid var(--red-b)" onclick="cambiarEstado('pendiente')">Rechazar — devolver</button>
+      </div>
+    </div>
+    <div class="dv" style="margin-top:10px"></div>
+    <button class="sav" style="margin-top:0" onclick="cerrarModal()">Cerrar</button>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════
+   USUARIOS
+════════════════════════════ */
+var USERS = {
+  'laupineda@laserhouse.co':    {name:'Laura Pineda',   av:'LP', rol:'gerente', sede:'Bogotá',  sedes:['Bogotá','Pereira']},
+  'juliansilva@laserhouse.co':  {name:'Julián Silva',   av:'JS', rol:'gerente', sede:'Bogotá',  sedes:['Bogotá','Pereira']},
+  'angie@laserhouse.co':        {name:'Angie',          av:'AN', rol:'gerente', sede:'Bogotá',  sedes:['Bogotá','Pereira']},
+  'lorenacaro@laserhouse.co':   {name:'Lorena Caro',    av:'LC', rol:'empleada',sede:'Bogotá',  sedes:['Bogotá']},
+  'kellynieto@laserhouse.co':   {name:'Kelly Nieto',    av:'KN', rol:'empleada',sede:'Pereira', sedes:['Pereira']},
+  'angelalinares@laserhouse.co':{name:'Ángela Linares', av:'AL', rol:'empleada',sede:'Pereira', sedes:['Pereira']}
+};
+
+var EQUIPO = {
+  'Bogotá':  [{email:'lorenacaro@laserhouse.co',name:'Lorena Caro',av:'LC'},{email:'angie@laserhouse.co',name:'Angie',av:'AN'}],
+  'Pereira': [{email:'kellynieto@laserhouse.co',name:'Kelly Nieto',av:'KN'},{email:'angelalinares@laserhouse.co',name:'Ángela Linares',av:'AL'}]
+};
+
+/* ════════════════════════════
+   BASE DE TAREAS
+════════════════════════════ */
+var TAREAS = [
+  {id:1, titulo:'Confirmar citas de la semana', desc:'Llamar a todas las pacientes con cita esta semana para confirmar asistencia.', asignado:'lorenacaro@laserhouse.co', asignadoNom:'Lorena Caro', delegadoPor:'laupineda@laserhouse.co', delegadoNom:'Laura Pineda', prioridad:'alta', fechaLim:'2026-06-03', estado:'en_proceso', sede:'Bogotá', fechaCreacion:'2026-05-30'},
+  {id:2, titulo:'Actualizar lista de insumos', desc:'Revisar el inventario y actualizar la lista de compras para la próxima semana.', asignado:'lorenacaro@laserhouse.co', asignadoNom:'Lorena Caro', delegadoPor:'laupineda@laserhouse.co', delegadoNom:'Laura Pineda', prioridad:'media', fechaLim:'2026-06-05', estado:'pendiente', sede:'Bogotá', fechaCreacion:'2026-05-31'},
+  {id:3, titulo:'Publicar contenido en redes', desc:'Subir 3 posts a Instagram y stories mostrando resultados de pacientes (con autorización).', asignado:'angie@laserhouse.co', asignadoNom:'Angie', delegadoPor:'laupineda@laserhouse.co', delegadoNom:'Laura Pineda', prioridad:'baja', fechaLim:'2026-06-07', estado:'pendiente', sede:'Bogotá', fechaCreacion:'2026-05-31'},
+  {id:4, titulo:'Registrar asistencia de la semana', desc:'Asegurarse de registrar entrada y salida todos los días de la semana.', asignado:'lorenacaro@laserhouse.co', asignadoNom:'Lorena Caro', delegadoPor:'juliansilva@laserhouse.co', delegadoNom:'Julián Silva', prioridad:'alta', fechaLim:'2026-05-30', estado:'completada', sede:'Bogotá', fechaCreacion:'2026-05-25'},
+  {id:5, titulo:'Contactar pacientes sin cita', desc:'Llamar a las 5 pacientes que terminaron tratamiento pero no han reagendado.', asignado:'lorenacaro@laserhouse.co', asignadoNom:'Lorena Caro', delegadoPor:'laupineda@laserhouse.co', delegadoNom:'Laura Pineda', prioridad:'alta', fechaLim:'2026-05-28', estado:'completada', sede:'Bogotá', fechaCreacion:'2026-05-24'},
+  {id:6, titulo:'Preparar informe mensual', desc:'Consolidar los datos de atención del mes de mayo para presentar en reunión.', asignado:'angie@laserhouse.co', asignadoNom:'Angie', delegadoPor:'laupineda@laserhouse.co', delegadoNom:'Laura Pineda', prioridad:'alta', fechaLim:'2026-05-29', estado:'en_revision', sede:'Bogotá', fechaCreacion:'2026-05-26'},
+  {id:7, titulo:'Confirmar citas Pereira semana', desc:'Confirmar por WhatsApp todas las citas de la semana en sede Pereira.', asignado:'kellynieto@laserhouse.co', asignadoNom:'Kelly Nieto', delegadoPor:'juliansilva@laserhouse.co', delegadoNom:'Julián Silva', prioridad:'alta', fechaLim:'2026-06-03', estado:'pendiente', sede:'Pereira', fechaCreacion:'2026-05-31'},
+  {id:8, titulo:'Actualizar precios de servicios', desc:'Revisar y actualizar el menú de servicios con los nuevos precios aprobados.', asignado:'angelalinares@laserhouse.co', asignadoNom:'Ángela Linares', delegadoPor:'juliansilva@laserhouse.co', delegadoNom:'Julián Silva', prioridad:'media', fechaLim:'2026-06-06', estado:'pendiente', sede:'Pereira', fechaCreacion:'2026-05-31'},
+  {id:9, titulo:'Limpieza profunda equipos', desc:'Realizar limpieza y desinfección profunda de todos los equipos de la sede.', asignado:'kellynieto@laserhouse.co', asignadoNom:'Kelly Nieto', delegadoPor:'juliansilva@laserhouse.co', delegadoNom:'Julián Silva', prioridad:'media', fechaLim:'2026-05-27', estado:'completada', sede:'Pereira', fechaCreacion:'2026-05-20'},
+  {id:10, titulo:'Revisar informe Pereira', desc:'Revisar y aprobar el informe de atención del mes de mayo sede Pereira.', asignado:'juliansilva@laserhouse.co', asignadoNom:'Julián Silva', delegadoPor:'laupineda@laserhouse.co', delegadoNom:'Laura Pineda', prioridad:'alta', fechaLim:'2026-06-04', estado:'pendiente', sede:'Bogotá', fechaCreacion:'2026-05-31'}
+];
+
+/* ════════════════════════════
+   ESTADO
+════════════════════════════ */
+var CU         = null;
+var SEDE       = 'Bogotá';
+var TAB        = 'activas';
+var FILTRO_EMP = null;
+var TAREA_ACT  = null;
+var HOY        = '2026-05-31';
+var idCounter  = 100;
+
+/* ════════════════════════════
+   UTILS
+════════════════════════════ */
+function pad(n){ return String(n).padStart(2,'0'); }
+function initials(n){ return n.split(' ').map(function(p){return p[0]}).join('').slice(0,2).toUpperCase(); }
+function diasRestantes(f){
+  if(!f) return null;
+  var h=new Date(HOY), d=new Date(f);
+  return Math.round((d-h)/(1000*60*60*24));
+}
+function estadoTarea(t){
+  if(t.estado==='completada') return 'completada';
+  if(t.estado==='en_revision') return 'en_revision';
+  var dias = diasRestantes(t.fechaLim);
+  if(dias!==null && dias<0 && t.estado!=='completada') return 'vencida';
+  return t.estado;
+}
+var PRIO_INFO = {
+  alta:  {cls:'prio-a', txt:'Alta'},
+  media: {cls:'prio-m', txt:'Media'},
+  baja:  {cls:'prio-b', txt:'Baja'}
+};
+var EST_INFO = {
+  pendiente:    {cls:'et-p', txt:'Pendiente'},
+  en_proceso:   {cls:'et-e', txt:'En proceso'},
+  en_revision:  {cls:'et-r', txt:'En revisión'},
+  completada:   {cls:'et-c', txt:'Completada'},
+  vencida:      {cls:'et-v', txt:'Vencida'}
+};
+
+/* ════════════════════════════
+   INIT
+════════════════════════════ */
+window.onload = function(){
+  var email = sessionStorage.getItem('ap_email') || 'lorenacaro@laserhouse.co';
+  CU   = USERS[email] || USERS['lorenacaro@laserhouse.co'];
+  SEDE = sessionStorage.getItem('ap_sede') || CU.sede;
+
+  document.getElementById('tb-av').textContent   = CU.av;
+  document.getElementById('tb-name').textContent = CU.name;
+  document.getElementById('tb-sede').textContent = SEDE;
+
+  /* Poblar select asignado */
+  var sel = document.getElementById('nt-asignado');
+  var equipo = CU.rol==='gerente'
+    ? Object.values(USERS).filter(function(u){ return u.sede===SEDE||u.rol==='gerente'; })
+    : [];
+  equipo.forEach(function(u){
+    var opt=document.createElement('option'); opt.value=u.name; opt.textContent=u.name;
+    sel.appendChild(opt);
+  });
+
+  /* Empleados solo ven botón "Nueva" si son gerentes */
+  if(CU.rol!=='gerente'){
+    document.getElementById('btn-nueva-tarea').style.display='none';
+  }
+
+  /* Filtro por empleado solo para gerentes */
+  if(CU.rol==='gerente'){
+    document.getElementById('filtro-empleado').style.display='block';
+    renderFiltroEmpleado();
+    document.getElementById('sec-mis-tareas').style.display='block';
+    renderMisTareas();
+  }
+
+  renderKPIs();
+  renderLista();
+};
+
+/* ════════════════════════════
+   KPIs
+════════════════════════════ */
+function getTareasVisibles(){
+  if(CU.rol==='gerente'){
+    return TAREAS.filter(function(t){ return t.sede===SEDE; });
+  }
+  return TAREAS.filter(function(t){
+    return t.asignado===Object.keys(USERS).find(function(e){ return USERS[e].name===CU.name; })
+      || t.asignado===getEmail();
+  });
+}
+function getEmail(){
+  return Object.keys(USERS).find(function(e){ return USERS[e].name===CU.name; }) || '';
+}
+
+function renderKPIs(){
+  var tareas = getTareasVisibles().filter(function(t){ return t.asignado!==getEmail()||CU.rol!=='gerente'; });
+  if(CU.rol==='gerente') tareas = TAREAS.filter(function(t){return t.sede===SEDE;});
+
+  var comp=0, proc=0, venc=0, pend=0, rev=0;
+  tareas.forEach(function(t){
+    var est=estadoTarea(t);
+    if(est==='completada') comp++;
+    else if(est==='en_proceso') proc++;
+    else if(est==='vencida') venc++;
+    else if(est==='en_revision') rev++;
+    else pend++;
+  });
+  var total=tareas.length;
+  var pct=total>0?Math.round(comp/total*100):0;
+
+  var cont=document.getElementById('kpi-grid'); cont.innerHTML='';
+  [{v:comp,  l:'Completadas', c:'kc-g'},{v:proc+rev, l:'En proceso',  c:'kc-b'},
+   {v:venc,  l:'Vencidas',    c:'kc-r'},{v:pend,     l:'Pendientes',  c:''}
+  ].forEach(function(it){
+    var d=document.createElement('div');
+    d.className='kc '+it.c;
+    d.innerHTML='<div class="kv">'+it.v+'</div><div class="kl">'+it.l+'</div>';
+    cont.appendChild(d);
+  });
+
+  document.getElementById('cumpl-fill').style.width=pct+'%';
+  document.getElementById('cumpl-pct').textContent=pct+'%';
+  document.getElementById('cumpl-pct').style.color=pct>=80?'var(--green)':pct>=50?'var(--yellow)':'var(--red)';
+  document.getElementById('cumpl-fill').style.background=pct>=80?'var(--green)':pct>=50?'var(--yellow)':'var(--red)';
+  document.getElementById('cumpl-detalle').textContent=comp+' completadas de '+total+' tareas totales';
+}
+
+/* ════════════════════════════
+   FILTRO EMPLEADO
+════════════════════════════ */
+function renderFiltroEmpleado(){
+  var eq   = EQUIPO[SEDE]||[];
+  var cont = document.getElementById('emp-chips'); cont.innerHTML='';
+  /* Chip "Todos" */
+  var all=document.createElement('div'); all.className='emp-chip'+(FILTRO_EMP===null?' on':'');
+  all.textContent='Todos'; all.onclick=function(){FILTRO_EMP=null;renderFiltroEmpleado();renderLista();};
+  cont.appendChild(all);
+  /* Chips por empleado */
+  var todos=[...eq];
+  /* Agregar gerentes de la sede */
+  Object.keys(USERS).forEach(function(e){
+    var u=USERS[e];
+    if(u.rol==='gerente'&&u.sede===SEDE&&!todos.find(function(x){return x.email===e;})){
+      todos.push({email:e,name:u.name,av:u.av});
+    }
+  });
+  todos.forEach(function(emp){
+    var chip=document.createElement('div');
+    chip.className='emp-chip'+(FILTRO_EMP===emp.email?' on':'');
+    chip.innerHTML='<div class="emp-av">'+emp.av+'</div>'+emp.name;
+    chip.onclick=function(){FILTRO_EMP=emp.email;renderFiltroEmpleado();renderLista();};
+    cont.appendChild(chip);
+  });
+}
+
+/* ════════════════════════════
+   LISTA TAREAS
+════════════════════════════ */
+function setTab(tab, el){
+  TAB=tab;
+  document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('on');});
+  if(el) el.classList.add('on');
+  renderLista();
+}
+
+function renderLista(){
+  var email = getEmail();
+  var tareas;
+
+  if(CU.rol==='gerente'){
+    tareas = TAREAS.filter(function(t){
+      /* Gerentes ven todas las de su sede excepto las que son para ellos mismos (esas van en "mis tareas") */
+      return t.sede===SEDE && t.asignado!==email;
+    });
+    if(FILTRO_EMP) tareas=tareas.filter(function(t){return t.asignado===FILTRO_EMP||USERS[t.asignado]&&USERS[t.asignado].name===FILTRO_EMP;});
+  } else {
+    /* Empleada solo ve sus propias tareas */
+    tareas=TAREAS.filter(function(t){ return t.asignado===email; });
+  }
+
+  /* Filtrar por tab */
+  tareas=tareas.filter(function(t){
+    var est=estadoTarea(t);
+    if(TAB==='activas')     return est!=='completada';
+    if(TAB==='completadas') return est==='completada';
+    if(TAB==='vencidas')    return est==='vencida';
+    return true;
+  });
+
+  /* Ordenar: vencidas primero, luego por fecha límite */
+  tareas.sort(function(a,b){
+    var ea=estadoTarea(a), eb=estadoTarea(b);
+    if(ea==='vencida'&&eb!=='vencida') return -1;
+    if(eb==='vencida'&&ea!=='vencida') return 1;
+    return (a.fechaLim||'').localeCompare(b.fechaLim||'');
+  });
+
+  var cont=document.getElementById('lista-tareas'); cont.innerHTML='';
+
+  if(!tareas.length){
+    cont.innerHTML='<div style="text-align:center;padding:28px;font-size:12px;color:var(--text-light)">No hay tareas en esta vista.</div>';
+    renderKPIs();
+    return;
+  }
+
+  tareas.forEach(function(t){ cont.appendChild(crearTareaRow(t, CU.rol==='gerente')); });
+  renderKPIs();
+}
+
+function crearTareaRow(t, esGerente){
+  var est  = estadoTarea(t);
+  var dias = diasRestantes(t.fechaLim);
+  var prio = PRIO_INFO[t.prioridad]||{cls:'',txt:t.prioridad};
+  var estI = EST_INFO[est]||EST_INFO['pendiente'];
+  var email= getEmail();
+
+  var row=document.createElement('div');
+  row.className='tarea-row'+(est==='vencida'?' vencida':est==='completada'?' completada':est==='en_revision'?' en-revision':'');
+
+  /* Checkbox */
+  var isDone = est==='completada';
+  var chkHtml='<div class="chk-wrap'+(isDone?' done':'')+'" onclick="toggleTarea('+t.id+',event)">'+
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>'+
+  '</div>';
+
+  /* Fecha límite */
+  var fechaHtml='';
+  if(t.fechaLim){
+    var fcls = dias===null?'fecha-ok':dias<0?'fecha-venc':dias<=3?'fecha-prox':'fecha-ok';
+    var ftxt = dias===null?t.fechaLim:dias<0?'Vencida hace '+Math.abs(dias)+'d':dias===0?'Vence HOY':dias===1?'Vence mañana':'Vence en '+dias+'d · '+t.fechaLim;
+    fechaHtml='<span class="fecha-lim '+fcls+'">'+
+      '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'+
+      ftxt+'</span>';
+  }
+
+  /* Quién delegó */
+  var delegadoHtml='';
+  if(esGerente||true){
+    delegadoHtml='<span class="tarea-asignado">'+
+      '<strong>'+t.asignadoNom+'</strong>'+
+      ' · por '+t.delegadoNom+
+    '</span>';
+  }
+
+  row.innerHTML=
+    chkHtml+
+    '<div class="tarea-body">'+
+      '<div class="tarea-titulo'+(isDone?' done':'')+'">'+t.titulo+'</div>'+
+      (t.desc?'<div class="tarea-desc">'+t.desc.slice(0,80)+(t.desc.length>80?'...':'')+'</div>':'')+
+      '<div class="tarea-meta">'+
+        '<span class="prio '+prio.cls+'">'+prio.txt+'</span>'+
+        '<span class="est-t '+estI.cls+'">'+estI.txt+'</span>'+
+        fechaHtml+
+        (esGerente?delegadoHtml:'')+
+      '</div>'+
+    '</div>'+
+    '<div class="tarea-actions">'+
+      '<button class="act-btn" title="Ver detalle" onclick="abrirDetalle('+t.id+',event)">'+
+        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'+
+      '</button>'+
+    '</div>';
+
+  return row;
+}
+
+/* ════════════════════════════
+   MIS TAREAS (gerentes)
+════════════════════════════ */
+function renderMisTareas(){
+  var email = getEmail();
+  var mis   = TAREAS.filter(function(t){ return t.asignado===email; });
+  var cont  = document.getElementById('lista-mis-tareas'); cont.innerHTML='';
+  if(!mis.length){
+    cont.innerHTML='<div style="font-size:12px;color:var(--text-light);padding:8px 0">No tienes tareas asignadas a ti.</div>';
+    return;
+  }
+  mis.forEach(function(t){ cont.appendChild(crearTareaRow(t, false)); });
+}
+
+/* ════════════════════════════
+   TOGGLE COMPLETAR
+════════════════════════════ */
+function toggleTarea(id, e){
+  e.stopPropagation();
+  var t=TAREAS.find(function(x){return x.id===id;});
+  if(!t) return;
+  t.estado = t.estado==='completada'?'pendiente':'completada';
+  renderLista();
+  if(CU.rol==='gerente') renderMisTareas();
+}
+
+/* ════════════════════════════
+   MODAL DETALLE
+════════════════════════════ */
+function abrirDetalle(id, e){
+  if(e) e.stopPropagation();
+  var t=TAREAS.find(function(x){return x.id===id;});
+  if(!t) return;
+  TAREA_ACT=t;
+  var est=estadoTarea(t);
+  var prio=PRIO_INFO[t.prioridad]||{cls:'',txt:t.prioridad};
+  var estI=EST_INFO[est]||EST_INFO['pendiente'];
+  var dias=diasRestantes(t.fechaLim);
+
+  document.getElementById('det-titulo').textContent=t.titulo;
+  document.getElementById('det-sub').textContent='Sede '+t.sede+' · Creada '+t.fechaCreacion;
+
+  document.getElementById('det-pills').innerHTML=
+    '<span class="prio '+prio.cls+'">'+prio.txt+'</span>'+
+    '<span class="est-t '+estI.cls+'">'+estI.txt+'</span>';
+
+  var rows=[
+    ['Asignada a',    t.asignadoNom],
+    ['Delegada por',  t.delegadoNom],
+    ['Fecha límite',  t.fechaLim+(dias!==null?' ('+(dias<0?'vencida hace '+Math.abs(dias)+'d':dias===0?'hoy':dias+'d restantes')+')':'')],
+    ['Estado actual', estI.txt]
+  ];
+  var rH='';
+  rows.forEach(function(r){rH+='<div class="det-row"><span class="det-l">'+r[0]+'</span><span class="det-v">'+r[1]+'</span></div>';});
+  document.getElementById('det-rows').innerHTML=rH;
+
+  var dw=document.getElementById('det-desc-wrap');
+  if(t.desc&&t.desc.trim()){dw.style.display='block';document.getElementById('det-desc').textContent=t.desc;}
+  else dw.style.display='none';
+
+  /* Acciones según rol */
+  var email=getEmail();
+  var esAsignado=t.asignado===email;
+  document.getElementById('det-acciones').style.display=esAsignado&&est!=='completada'?'block':'none';
+  document.getElementById('det-aprobar').style.display=CU.rol==='gerente'&&est==='en_revision'?'block':'none';
+
+  document.getElementById('modal-det').classList.add('show');
+}
+
+function cambiarEstado(nuevoEst){
+  if(!TAREA_ACT) return;
+  TAREA_ACT.estado=nuevoEst;
+  cerrarModal();
+  renderLista();
+  if(CU.rol==='gerente') renderMisTareas();
+}
+
+function cerrarModal(){ document.getElementById('modal-det').classList.remove('show'); TAREA_ACT=null; }
+document.getElementById('modal-det').addEventListener('click',function(e){if(e.target===this) cerrarModal();});
+
+/* ════════════════════════════
+   FORM NUEVA TAREA
+════════════════════════════ */
+function abrirFormNueva(){
+  document.getElementById('form-nueva').classList.add('show');
+  /* Fecha por defecto = mañana */
+  var d=new Date(HOY); d.setDate(d.getDate()+1);
+  document.getElementById('nt-fecha').value=d.toISOString().slice(0,10);
+  window.scrollTo({top:document.getElementById('form-nueva').offsetTop-70,behavior:'smooth'});
+}
+function cerrarFormNueva(){ document.getElementById('form-nueva').classList.remove('show'); }
+
+function guardarTarea(){
+  var titulo    = document.getElementById('nt-titulo').value.trim();
+  var asignNom  = document.getElementById('nt-asignado').value;
+  var prioridad = document.getElementById('nt-prioridad').value;
+  var fechaLim  = document.getElementById('nt-fecha').value;
+  var desc      = document.getElementById('nt-desc').value.trim();
+
+  if(!titulo||!asignNom||!fechaLim){ alert('Completa título, persona asignada y fecha límite.'); return; }
+
+  /* Buscar email del asignado */
+  var asignEmail='';
+  Object.keys(USERS).forEach(function(e){ if(USERS[e].name===asignNom) asignEmail=e; });
+
+  var nueva={
+    id:++idCounter, titulo:titulo, desc:desc,
+    asignado:asignEmail, asignadoNom:asignNom,
+    delegadoPor:getEmail(), delegadoNom:CU.name,
+    prioridad:prioridad, fechaLim:fechaLim,
+    estado:'pendiente', sede:SEDE, fechaCreacion:HOY
+  };
+  TAREAS.unshift(nueva);
+  cerrarFormNueva();
+  ['nt-titulo','nt-desc','nt-fecha'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('nt-asignado').value='';
+  renderLista();
+  if(CU.rol==='gerente') renderMisTareas();
+  alert('Tarea delegada correctamente a '+asignNom+'.');
+}
+</script>
+</body>
+</html>

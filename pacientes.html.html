@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laser House — Pacientes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f5f0e8;--cream-dark:#ede6d8;--cream-deep:#e0d5c0;--white:#fff;
+  --gold:#c4a35a;--gold-dark:#a8893e;--gold-light:#faf3e4;--gold-border:#e0c98a;--gold-pale:#fdf8ee;
+  --brown:#4a3820;--brown-mid:#6b5a3a;--text-dark:#2c2318;--text-mid:#6b5a3a;--text-light:#a08c6e;
+  --border:rgba(107,90,58,.12);--border-mid:rgba(107,90,58,.22);--border-gold:rgba(196,163,90,.35);
+  --green:#2d6a2d;--green-l:#e8f5e8;--green-b:#a8d8a8;
+  --yellow:#8a6a00;--yellow-l:#fffbe6;--yellow-b:#f0d060;
+  --red:#8a2020;--red-l:#faeaea;--red-b:#e8a09a;
+  --blue:#1a3a6a;--blue-l:#e8eef8;--blue-b:#a0b8e0;
+  --orange:#b84a00;--orange-l:#fff0e6;--orange-b:#f0a060;
+}
+html,body{min-height:100%;font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-dark);font-size:13px}
+
+.topbar{background:var(--white);border-bottom:1px solid var(--border-gold);padding:0 22px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.back-btn{display:flex;align-items:center;gap:6px;color:var(--text-mid);font-size:12px;cursor:pointer;padding:6px 10px;border-radius:8px;border:.5px solid var(--border-mid);background:transparent;font-family:'DM Sans',sans-serif;transition:all .15s}
+.back-btn:hover{background:var(--gold-pale);border-color:var(--gold);color:var(--brown)}
+.tb-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--text-dark)}
+.tb-right{display:flex;align-items:center;gap:9px}
+.sede-pill{display:flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;color:var(--gold-dark);background:var(--gold-pale);border:1px solid var(--gold-border)}
+.sede-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.tb-av{width:30px;height:30px;border-radius:50%;background:var(--gold-light);border:1.5px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--brown)}
+.tb-name{font-size:12px;color:var(--text-mid);font-weight:500}
+
+.page{max-width:1020px;margin:0 auto;padding:20px 18px 60px}
+.sec{font-size:10px;font-weight:500;color:var(--text-light);letter-spacing:.8px;text-transform:uppercase;margin:20px 0 11px;display:flex;align-items:center;gap:8px}
+.sec::after{content:'';flex:1;height:.5px;background:var(--border-gold)}
+.sec:first-child{margin-top:0}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:12px}
+.g1{margin-bottom:12px}
+.card{background:var(--white);border:1px solid var(--border-gold);border-radius:14px;padding:15px}
+.ct{font-size:12px;font-weight:500;color:var(--text-dark);margin-bottom:11px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.ct-s{font-size:10px;color:var(--text-light)}
+.dv{border:none;border-top:.5px solid var(--border-gold);margin:11px 0}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.fg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.fld{margin-bottom:9px}
+.lbl{font-size:10px;color:var(--text-mid);margin-bottom:3px;display:block;font-weight:500}
+.inp{width:100%;border:1px solid var(--border-mid);border-radius:8px;padding:8px 10px;font-size:12px;background:var(--cream);color:var(--text-dark);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
+.inp:focus{border-color:var(--gold);background:var(--white)}
+.sel{width:100%;border:1px solid var(--border-mid);border-radius:8px;padding:7px 10px;font-size:12px;background:var(--cream);color:var(--text-dark);font-family:'DM Sans',sans-serif;outline:none}
+.sel:focus{border-color:var(--gold)}
+.ta{min-height:55px;resize:vertical}
+.sav{background:var(--brown);color:#e8d4b0;border:none;border-radius:9px;padding:10px;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;font-weight:500;width:100%;margin-top:3px;transition:background .15s}
+.sav:hover{background:#5a4828}
+.btn-sm{padding:5px 12px;font-size:11px;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .15s}
+.btn-gold{background:var(--gold);color:#fff}.btn-gold:hover{background:var(--gold-dark)}
+.btn-outline{background:transparent;color:var(--brown-mid);border:1px solid var(--gold-border)}.btn-outline:hover{background:var(--cream-dark)}
+.btn-red{background:var(--red-l);color:var(--red);border:1px solid var(--red-b)}.btn-red:hover{background:#f0d0d0}
+
+/* SEMÁFORO */
+.sem-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.sem-card{border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:transform .15s;border:1px solid}
+.sem-card:hover{transform:translateY(-2px)}
+.sem-g{background:var(--green-l);border-color:var(--green-b)}
+.sem-y{background:var(--yellow-l);border-color:var(--yellow-b)}
+.sem-r{background:var(--red-l);border-color:var(--red-b)}
+.sem-val{font-size:30px;font-weight:500;font-family:'Cormorant Garamond',serif;line-height:1}
+.sem-g .sem-val{color:var(--green)}.sem-y .sem-val{color:var(--yellow)}.sem-r .sem-val{color:var(--red)}
+.sem-lbl{font-size:10px;font-weight:500;margin-top:4px}
+.sem-g .sem-lbl{color:var(--green)}.sem-y .sem-lbl{color:var(--yellow)}.sem-r .sem-lbl{color:var(--red)}
+.sem-sub{font-size:9px;color:var(--text-light);margin-top:2px}
+
+/* STAT CARDS */
+.sc{background:var(--cream);border:1px solid var(--border-gold);border-radius:11px;padding:11px 13px;text-align:center}
+.sv{font-size:20px;font-weight:500;line-height:1;font-family:'Cormorant Garamond',serif;color:var(--text-dark)}
+.sl{font-size:10px;color:var(--text-light);margin-top:3px}
+.sc-g .sv{color:var(--green)}.sc-y .sv{color:var(--yellow)}.sc-r .sv{color:var(--red)}.sc-go .sv{color:var(--gold-dark)}.sc-b .sv{color:var(--blue)}
+
+/* TABS PERIODO */
+.tabs{display:flex;gap:3px;background:var(--cream-dark);padding:3px;border-radius:9px;width:fit-content}
+.tab{padding:5px 13px;font-size:11px;border-radius:7px;cursor:pointer;color:var(--text-light);border:none;background:transparent;font-family:'DM Sans',sans-serif}
+.tab.on{background:var(--white);color:var(--brown);font-weight:500;border:.5px solid var(--border-gold)}
+
+/* BUSQUEDA CELULAR */
+.cel-search{background:var(--gold-pale);border:1.5px solid var(--gold-border);border-radius:12px;padding:14px;margin-bottom:12px}
+.cel-found{background:var(--white);border:1px solid var(--green-b);border-radius:10px;padding:12px;margin-top:10px;display:none}
+.cel-found.show{display:block}
+
+/* PACIENTE ROW */
+.pac-row{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:10px;background:var(--cream);margin-bottom:5px;cursor:pointer;transition:all .15s}
+.pac-row:hover{background:var(--gold-pale)}
+.pac-row:last-child{margin-bottom:0}
+.pac-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;background:var(--gold-light);color:var(--brown);border:1px solid var(--gold-border)}
+.pac-name{font-size:12px;font-weight:500;color:var(--text-dark)}
+.pac-sub{font-size:10px;color:var(--text-light);margin-top:1px}
+.pac-cols{display:flex;gap:14px;margin-left:auto;flex-shrink:0}
+.pac-col{text-align:right}
+.pcl{font-size:9px;color:var(--text-light);margin-bottom:1px}
+.pcv{font-size:11px;font-weight:500;color:var(--text-dark)}
+
+/* PILLS */
+.ep{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:500;white-space:nowrap}
+.ep-dot{width:6px;height:6px;border-radius:50%}
+.ep-g{background:var(--green-l);color:var(--green);border:1px solid var(--green-b)}
+.ep-y{background:var(--yellow-l);color:var(--yellow);border:1px solid var(--yellow-b)}
+.ep-r{background:var(--red-l);color:var(--red);border:1px solid var(--red-b)}
+.ep-b{background:var(--blue-l);color:var(--blue);border:1px solid var(--blue-b)}
+.ep-o{background:var(--orange-l);color:var(--orange);border:1px solid var(--orange-b)}
+
+/* SESION BADGE */
+.ses-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;font-size:10px;background:var(--gold-pale);color:var(--brown-mid);border:1px solid var(--gold-border)}
+
+/* MODAL */
+.mbg{display:none;position:fixed;inset:0;background:rgba(44,35,24,.45);z-index:200;align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto}
+.mbg.show{display:flex}
+.modal{background:var(--white);border-radius:16px;border:1px solid var(--border-gold);padding:22px;max-width:520px;width:100%;margin-bottom:30px}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;margin-bottom:3px;color:var(--text-dark)}
+.modal-sub{font-size:11px;color:var(--text-light);margin-bottom:14px}
+.det-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:.5px solid var(--border-gold)}
+.det-row:last-child{border-bottom:none}
+.det-l{font-size:11px;color:var(--text-light)}
+.det-v{font-size:12px;font-weight:500;color:var(--text-dark);text-align:right;max-width:280px}
+.close-btn{width:28px;height:28px;border-radius:50%;border:.5px solid var(--border-mid);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:14px}
+.close-btn:hover{background:var(--cream-dark)}
+
+/* COUNTDOWN */
+.countdown{font-size:22px;font-weight:500;font-family:'Cormorant Garamond',serif;color:var(--gold-dark)}
+.countdown.urgent{color:var(--red)}
+.countdown.soon{color:var(--orange)}
+
+/* HBAR */
+.hbar{height:5px;border-radius:3px;background:var(--cream-deep);overflow:hidden;margin-top:4px}
+.hfill{height:100%;border-radius:3px;background:var(--gold)}
+
+/* FORM REGISTRAR */
+.form-wrap{display:none;background:var(--cream);border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid var(--border-gold)}
+.form-wrap.show{display:block}
+
+@media(max-width:640px){
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .pac-cols{display:none}
+  .tb-name{display:none}
+  .fg2,.fg3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="back-btn" onclick="window.location.href='aestheticpro-home.html'">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Inicio
+    </button>
+    <div class="tb-title">Pacientes</div>
+  </div>
+  <div class="tb-right">
+    <div class="sede-pill"><div class="sede-dot"></div><span id="tb-sede">Bogotá</span></div>
+    <div class="tb-av" id="tb-av">LC</div>
+    <div class="tb-name" id="tb-name">Lorena Caro</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ══ BLOQUE GERENTES: semáforo + resumen ══ -->
+  <div id="bloque-gerente" style="display:none">
+
+    <div class="sec">Semáforo — <span id="sem-sede-lbl">Bogotá</span></div>
+    <div class="sem-grid">
+      <div class="sem-card sem-g" onclick="filtrarSem('activo')">
+        <div class="sem-val" id="sem-act">0</div>
+        <div class="sem-lbl">Activos</div>
+        <div class="sem-sub">Con próxima cita</div>
+      </div>
+      <div class="sem-card sem-y" onclick="filtrarSem('pendiente')">
+        <div class="sem-val" id="sem-pen">0</div>
+        <div class="sem-lbl">Pendientes</div>
+        <div class="sem-sub">No han agendado</div>
+      </div>
+      <div class="sem-card sem-r" onclick="filtrarSem('riesgo')">
+        <div class="sem-val" id="sem-rie">0</div>
+        <div class="sem-lbl">En riesgo</div>
+        <div class="sem-sub">No desean continuar</div>
+      </div>
+    </div>
+
+    <div class="sec">Resumen financiero — <span id="res-sede-lbl">Bogotá</span></div>
+    <div style="display:flex;gap:8px;margin-bottom:11px;flex-wrap:wrap">
+      <div class="tabs" id="periodo-tabs">
+        <button class="tab on" onclick="setPeriodo('dia',this)">Hoy</button>
+        <button class="tab" onclick="setPeriodo('semana',this)">Semana</button>
+        <button class="tab" onclick="setPeriodo('mes',this)">Mes</button>
+      </div>
+    </div>
+    <div class="g4" id="stats-fin"></div>
+
+    <div class="g2">
+      <!-- Pacientes que no agendaron -->
+      <div class="card">
+        <div class="ct">No han agendado próxima cita <span class="ct-s" id="no-ag-count"></span></div>
+        <div id="lista-no-ag"></div>
+      </div>
+      <!-- Pacientes que no asistieron hoy -->
+      <div class="card">
+        <div class="ct">No asistieron hoy <span class="ct-s" id="faltas-count"></span></div>
+        <div id="lista-faltas"></div>
+      </div>
+    </div>
+
+    <!-- Métodos de pago -->
+    <div class="card g1">
+      <div class="ct">Métodos de pago del período</div>
+      <div id="metodos-pago" style="display:flex;flex-direction:column;gap:7px"></div>
+    </div>
+
+  </div>
+
+  <!-- ══ REGISTRO DE ATENCIÓN (todos los perfiles) ══ -->
+  <div class="sec">Registrar atención</div>
+
+  <!-- PASO 1: buscar por celular -->
+  <div class="cel-search">
+    <div style="font-size:12px;font-weight:500;color:var(--brown);margin-bottom:8px">
+      ¿La paciente ya ha venido antes? Busca por celular
+    </div>
+    <div style="display:flex;gap:8px">
+      <input class="inp" type="tel" id="cel-buscar" placeholder="Ej: 300 111 2222" style="flex:1" oninput="buscarPorCelular(this.value)">
+      <button class="btn-sm btn-gold" onclick="mostrarFormNuevo()">+ Nueva paciente</button>
+    </div>
+    <!-- Resultado búsqueda -->
+    <div class="cel-found" id="cel-found">
+      <div id="cel-found-content"></div>
+    </div>
+  </div>
+
+  <!-- FORMULARIO REGISTRO (paciente existente o nueva) -->
+  <div class="form-wrap" id="form-registro">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div>
+        <div style="font-size:12px;font-weight:500;color:var(--text-dark)" id="form-titulo">Registrar atención</div>
+        <div style="font-size:10px;color:var(--text-light)" id="form-sub"></div>
+      </div>
+      <div class="ses-badge" id="ses-badge" style="display:none"></div>
+    </div>
+
+    <!-- Datos básicos (solo para nueva paciente) -->
+    <div id="datos-nueva" style="display:none">
+      <div class="fg2">
+        <div class="fld"><label class="lbl">Nombre completo *</label><input class="inp" type="text" id="f-nombre" placeholder="Nombre completo"></div>
+        <div class="fld"><label class="lbl">Celular *</label><input class="inp" type="tel" id="f-cel" placeholder="300 000 0000"></div>
+      </div>
+    </div>
+
+    <!-- Datos de la sesión -->
+    <div class="fg3">
+      <div class="fld"><label class="lbl">Hora de llegada *</label><input class="inp" type="time" id="f-entrada"></div>
+      <div class="fld"><label class="lbl">Hora de salida *</label><input class="inp" type="time" id="f-salida"></div>
+      <div class="fld"><label class="lbl">Servicio realizado *</label>
+        <select class="sel" id="f-servicio">
+          <option value="">Seleccionar...</option>
+          <option>Depilación láser</option>
+          <option>Radiofrecuencia</option>
+          <option>Hidratación facial</option>
+          <option>Mesoterapia</option>
+          <option>Peeling</option>
+          <option>Limpieza facial</option>
+          <option>Plasma rico en plaquetas</option>
+          <option>Otro</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg3">
+      <div class="fld"><label class="lbl">Zonas tratadas</label><input class="inp" type="text" id="f-zonas" placeholder="Ej: rostro, piernas..."></div>
+      <div class="fld"><label class="lbl">Valor pagado *</label><input class="inp" type="number" id="f-valor" placeholder="0"></div>
+      <div class="fld"><label class="lbl">Método de pago *</label>
+        <select class="sel" id="f-pago">
+          <option value="">Seleccionar...</option>
+          <option>Efectivo</option><option>Nequi</option><option>Bancolombia</option>
+          <option>Daviplata</option><option>Tarjeta débito</option><option>Tarjeta crédito</option><option>Transferencia</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="dv"></div>
+    <div style="font-size:11px;font-weight:500;color:var(--text-dark);margin-bottom:8px">Seguimiento</div>
+    <div class="fg2">
+      <div class="fld"><label class="lbl">¿Agendó próxima cita? *</label>
+        <select class="sel" id="f-cita" onchange="toggleFechaCita(this.value)">
+          <option value="">Seleccionar...</option>
+          <option value="si">Sí — cita agendada</option>
+          <option value="despues">Agendará después</option>
+          <option value="no">No desea continuar</option>
+          <option value="pendiente">Pendiente de confirmar</option>
+        </select>
+      </div>
+      <div class="fld" id="fld-fecha" style="display:none">
+        <label class="lbl">Fecha de la cita</label>
+        <input class="inp" type="date" id="f-fecha-cita">
+      </div>
+    </div>
+    <div class="fld"><label class="lbl">Notas del procedimiento</label><textarea class="inp ta" id="f-notas" placeholder="Observaciones, reacciones, recomendaciones..."></textarea></div>
+    <div style="display:flex;gap:8px">
+      <button class="sav" onclick="guardarAtencion()">Guardar atención</button>
+      <button class="btn-sm btn-outline" style="padding:10px 16px" onclick="cerrarForm()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- ══ REGISTRAR FALTA ══ -->
+  <div class="form-wrap" id="form-falta">
+    <div style="font-size:12px;font-weight:500;color:var(--red);margin-bottom:10px">
+      Registrar paciente que no asistió
+    </div>
+    <div class="fg2">
+      <div class="fld"><label class="lbl">Celular de la paciente</label><input class="inp" type="tel" id="ff-cel" placeholder="300 000 0000" oninput="buscarFalta(this.value)"></div>
+      <div class="fld"><label class="lbl">Nombre (si no está registrada)</label><input class="inp" type="text" id="ff-nombre" placeholder="Nombre completo"></div>
+    </div>
+    <div class="fld"><label class="lbl">Motivo de la falta (opcional)</label>
+      <select class="sel" id="ff-motivo">
+        <option value="no_aviso">No avisó</option>
+        <option value="cancelo">Canceló por WhatsApp</option>
+        <option value="enfermedad">Enfermedad</option>
+        <option value="otro">Otro motivo</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="sav" onclick="guardarFalta()">Registrar falta</button>
+      <button class="btn-sm btn-outline" style="padding:10px 16px" onclick="document.getElementById('form-falta').classList.remove('show')">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- ══ LISTA DE PACIENTES ══ -->
+  <div class="sec" style="margin-top:20px">Lista de pacientes — <span id="lista-sede-lbl">Bogotá</span></div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+    <div class="tabs">
+      <button class="tab on" onclick="setTab('hoy',this)">Hoy</button>
+      <button class="tab" onclick="setTab('semana',this)">Semana</button>
+      <button class="tab" onclick="setTab('todos',this)">Todos</button>
+    </div>
+    <div style="display:flex;gap:6px">
+      <button class="btn-sm btn-red" onclick="document.getElementById('form-falta').classList.toggle('show');document.getElementById('form-registro').classList.remove('show')">
+        Registrar falta
+      </button>
+    </div>
+  </div>
+
+  <div style="position:relative;margin-bottom:11px">
+    <input class="inp" type="text" id="buscador" placeholder="Buscar paciente..." oninput="renderLista()" style="padding-left:34px">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-light)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  </div>
+
+  <div class="card">
+    <div class="ct"><span id="lista-titulo">Pacientes de hoy</span><span id="lista-count" class="ct-s"></span></div>
+    <div id="lista-pacientes"></div>
+  </div>
+
+</div>
+
+<!-- MODAL DETALLE -->
+<div class="mbg" id="modal-det">
+  <div class="modal">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px">
+      <div>
+        <div class="modal-title" id="det-nombre">—</div>
+        <div class="modal-sub" id="det-sub">—</div>
+      </div>
+      <button class="close-btn" onclick="cerrarModal()">✕</button>
+    </div>
+    <div id="det-pills" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px"></div>
+
+    <!-- Conteo de cita -->
+    <div id="det-cita-countdown" style="display:none;background:var(--gold-pale);border:1px solid var(--gold-border);border-radius:10px;padding:12px;text-align:center;margin-bottom:14px">
+      <div style="font-size:10px;color:var(--text-light);margin-bottom:4px">Próxima cita</div>
+      <div class="countdown" id="det-countdown-val">—</div>
+      <div style="font-size:11px;color:var(--text-light);margin-top:3px" id="det-countdown-fecha">—</div>
+    </div>
+
+    <!-- Historial de sesiones -->
+    <div id="det-historial-wrap">
+      <div style="font-size:11px;font-weight:500;color:var(--text-dark);margin-bottom:8px">Historial de sesiones</div>
+      <div id="det-sesiones"></div>
+    </div>
+
+    <!-- Última sesión detalle -->
+    <div class="dv"></div>
+    <div style="font-size:11px;font-weight:500;color:var(--text-dark);margin-bottom:8px">Última sesión</div>
+    <div id="det-rows"></div>
+    <div id="det-notas-w" style="display:none">
+      <div class="dv"></div>
+      <div style="font-size:10px;color:var(--text-light);margin-bottom:4px">Notas</div>
+      <div id="det-notas" style="font-size:12px;color:var(--text-dark);line-height:1.5;background:var(--cream);border-radius:8px;padding:10px"></div>
+    </div>
+    <div class="dv"></div>
+    <button class="sav" style="margin-top:0" onclick="cerrarModal()">Cerrar</button>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════
+   USUARIOS
+════════════════════════════ */
+var USERS = {
+  'laupineda@laserhouse.co':    {name:'Laura Pineda',   av:'LP', rol:'gerente', sede:'Bogotá',  sedes:['Bogotá','Pereira']},
+  'juliansilva@laserhouse.co':  {name:'Julián Silva',   av:'JS', rol:'gerente', sede:'Bogotá',  sedes:['Bogotá','Pereira']},
+  'angie@laserhouse.co':        {name:'Angie',          av:'AN', rol:'gerente', sede:'Bogotá',  sedes:['Bogotá','Pereira']},
+  'lorenacaro@laserhouse.co':   {name:'Lorena Caro',    av:'LC', rol:'empleada',sede:'Bogotá',  sedes:['Bogotá']},
+  'kellynieto@laserhouse.co':   {name:'Kelly Nieto',    av:'KN', rol:'empleada',sede:'Pereira', sedes:['Pereira']},
+  'angelalinares@laserhouse.co':{name:'Ángela Linares', av:'AL', rol:'empleada',sede:'Pereira', sedes:['Pereira']}
+};
+
+/* ════════════════════════════
+   BASE DE PACIENTES
+   Cada paciente tiene: cel (clave única), nombre, sede,
+   sesiones[] (historial), faltas[], proximaCita
+════════════════════════════ */
+var DB = {
+  'Bogotá': {
+    pacientes: [
+      { cel:'3001112222', nombre:'Camila Torres', sede:'Bogotá',
+        proximaCita:'2026-06-14',
+        sesiones:[
+          {id:1,fecha:'2026-05-31',entrada:'09:00',salida:'10:10',servicio:'Depilación láser',zonas:'Piernas completas',valor:180000,pago:'Nequi',cita:'si',notas:'Primera sesión. Reacción normal.',atendio:'Lorena Caro'},
+          {id:2,fecha:'2026-04-30',entrada:'09:00',salida:'10:05',servicio:'Depilación láser',zonas:'Piernas completas',valor:180000,pago:'Nequi',cita:'si',notas:'',atendio:'Lorena Caro'}
+        ],
+        faltas:[]
+      },
+      { cel:'3112223333', nombre:'María Rodríguez', sede:'Bogotá',
+        proximaCita:'',
+        sesiones:[
+          {id:3,fecha:'2026-05-31',entrada:'10:15',salida:'11:00',servicio:'Hidratación facial',zonas:'Rostro',valor:120000,pago:'Efectivo',cita:'despues',notas:'Piel sensible.',atendio:'Angie'}
+        ],
+        faltas:[]
+      },
+      { cel:'3153334444', nombre:'Sofía Martínez', sede:'Bogotá',
+        proximaCita:'2026-06-21',
+        sesiones:[
+          {id:4,fecha:'2026-05-31',entrada:'11:10',salida:'12:00',servicio:'Radiofrecuencia',zonas:'Abdomen',valor:220000,pago:'Bancolombia',cita:'si',notas:'',atendio:'Lorena Caro'},
+          {id:5,fecha:'2026-04-20',entrada:'11:00',salida:'11:50',servicio:'Radiofrecuencia',zonas:'Abdomen',valor:220000,pago:'Bancolombia',cita:'si',notas:'',atendio:'Angie'},
+          {id:6,fecha:'2026-03-15',entrada:'10:30',salida:'11:20',servicio:'Radiofrecuencia',zonas:'Abdomen y flancos',valor:220000,pago:'Bancolombia',cita:'si',notas:'',atendio:'Lorena Caro'}
+        ],
+        faltas:[{fecha:'2026-05-01',motivo:'no_aviso'}]
+      },
+      { cel:'3204445555', nombre:'Valeria Gómez', sede:'Bogotá',
+        proximaCita:'',
+        sesiones:[
+          {id:7,fecha:'2026-05-31',entrada:'14:00',salida:'14:45',servicio:'Limpieza facial',zonas:'Rostro',valor:90000,pago:'Tarjeta débito',cita:'pendiente',notas:'',atendio:'Angie'}
+        ],
+        faltas:[]
+      },
+      { cel:'3225556666', nombre:'Laura Sánchez', sede:'Bogotá',
+        proximaCita:'',
+        sesiones:[
+          {id:8,fecha:'2026-05-30',entrada:'15:00',salida:'16:00',servicio:'Mesoterapia',zonas:'Papada',valor:160000,pago:'Nequi',cita:'no',notas:'No desea continuar.',atendio:'Lorena Caro'}
+        ],
+        faltas:[]
+      },
+      { cel:'3186667777', nombre:'Andrea Patiño', sede:'Bogotá',
+        proximaCita:'2026-06-07',
+        sesiones:[
+          {id:9,fecha:'2026-05-30',entrada:'09:30',salida:'10:30',servicio:'Peeling',zonas:'Rostro y cuello',valor:130000,pago:'Efectivo',cita:'si',notas:'',atendio:'Angie'}
+        ],
+        faltas:[]
+      }
+    ],
+    faltas_hoy: [
+      {cel:'3001119999', nombre:'Patricia Mora', motivo:'cancelo'}
+    ]
+  },
+  'Pereira': {
+    pacientes: [
+      { cel:'3041002000', nombre:'Tatiana Ríos', sede:'Pereira',
+        proximaCita:'2026-06-10',
+        sesiones:[
+          {id:10,fecha:'2026-05-31',entrada:'08:30',salida:'09:30',servicio:'Radiofrecuencia',zonas:'Piernas',valor:200000,pago:'Nequi',cita:'si',notas:'',atendio:'Kelly Nieto'},
+          {id:11,fecha:'2026-04-25',entrada:'08:30',salida:'09:25',servicio:'Radiofrecuencia',zonas:'Piernas',valor:200000,pago:'Nequi',cita:'si',notas:'',atendio:'Kelly Nieto'}
+        ],
+        faltas:[]
+      },
+      { cel:'3162003000', nombre:'Paola Vargas', sede:'Pereira',
+        proximaCita:'',
+        sesiones:[
+          {id:12,fecha:'2026-05-31',entrada:'09:45',salida:'10:30',servicio:'Depilación láser',zonas:'Axilas',valor:80000,pago:'Efectivo',cita:'despues',notas:'',atendio:'Ángela Linares'}
+        ],
+        faltas:[]
+      },
+      { cel:'3133004000', nombre:'Marcela Castro', sede:'Pereira',
+        proximaCita:'2026-06-07',
+        sesiones:[
+          {id:13,fecha:'2026-05-31',entrada:'11:00',salida:'12:00',servicio:'Limpieza facial',zonas:'Rostro',valor:90000,pago:'Bancolombia',cita:'si',notas:'Poros dilatados.',atendio:'Kelly Nieto'}
+        ],
+        faltas:[]
+      },
+      { cel:'3174005000', nombre:'Natalia Ospina', sede:'Pereira',
+        proximaCita:'',
+        sesiones:[
+          {id:14,fecha:'2026-05-30',entrada:'14:30',salida:'15:15',servicio:'Peeling',zonas:'Rostro',valor:130000,pago:'Tarjeta crédito',cita:'no',notas:'',atendio:'Ángela Linares'}
+        ],
+        faltas:[]
+      },
+      { cel:'3195006000', nombre:'Carolina Mejía', sede:'Pereira',
+        proximaCita:'2026-06-14',
+        sesiones:[
+          {id:15,fecha:'2026-05-30',entrada:'15:30',salida:'16:30',servicio:'Mesoterapia',zonas:'Abdomen',valor:160000,pago:'Nequi',cita:'si',notas:'',atendio:'Kelly Nieto'},
+          {id:16,fecha:'2026-04-15',entrada:'15:00',salida:'16:00',servicio:'Mesoterapia',zonas:'Abdomen',valor:160000,pago:'Nequi',cita:'si',notas:'',atendio:'Kelly Nieto'}
+        ],
+        faltas:[]
+      }
+    ],
+    faltas_hoy: []
+  }
+};
+
+/* ════════════════════════════
+   ESTADO
+════════════════════════════ */
+var CU      = null;
+var SEDE    = 'Bogotá';
+var TAB     = 'hoy';
+var FILTRO  = null;
+var PERIODO = 'dia';
+var HOY     = '2026-05-31';
+var PAC_ACTIVA = null; /* paciente seleccionada para registrar */
+
+function fmt(v){ return '$'+(+v).toLocaleString('es-CO'); }
+function pad(n){ return String(n).padStart(2,'0'); }
+function duracion(e,s){
+  if(!e||!s) return '—';
+  var me=+e.split(':')[0]*60 + +e.split(':')[1];
+  var ms=+s.split(':')[0]*60 + +s.split(':')[1];
+  var d=ms-me; if(d<0) return '—';
+  return Math.floor(d/60)+'h '+(d%60)+'min';
+}
+function initials(n){ return n.split(' ').map(function(p){return p[0]}).join('').slice(0,2).toUpperCase(); }
+function diasParaCita(fecha){
+  if(!fecha) return null;
+  var hoy = new Date(HOY), cita = new Date(fecha);
+  return Math.round((cita-hoy)/(1000*60*60*24));
+}
+
+function estadoPac(p){
+  var ult = p.sesiones[0];
+  if(!ult) return 'pendiente';
+  if(ult.cita==='no') return 'riesgo';
+  if(ult.cita==='si' && p.proximaCita) return 'activo';
+  return 'pendiente';
+}
+
+var EP = {
+  activo:   {txt:'Con cita',          cls:'ep ep-g', dot:'background:var(--green)'},
+  pendiente:{txt:'Sin agendar',        cls:'ep ep-y', dot:'background:var(--yellow)'},
+  riesgo:   {txt:'No continúa',        cls:'ep ep-r', dot:'background:var(--red)'}
+};
+
+/* ════════════════════════════
+   INIT
+════════════════════════════ */
+window.onload = function(){
+  var email = sessionStorage.getItem('ap_email') || 'lorenacaro@laserhouse.co';
+  CU   = USERS[email] || USERS['lorenacaro@laserhouse.co'];
+  SEDE = sessionStorage.getItem('ap_sede') || CU.sede;
+
+  document.getElementById('tb-av').textContent   = CU.av;
+  document.getElementById('tb-name').textContent = CU.name;
+  document.getElementById('tb-sede').textContent = SEDE;
+  ['sem-sede-lbl','res-sede-lbl','lista-sede-lbl'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.textContent = SEDE;
+  });
+
+  /* Hora default */
+  var n=new Date();
+  document.getElementById('f-entrada').value = pad(n.getHours())+':'+pad(n.getMinutes());
+
+  if(CU.rol==='gerente'){
+    document.getElementById('bloque-gerente').style.display='block';
+    renderSemaforo();
+    renderResumen();
+    renderNoAgendan();
+    renderFaltasGerente();
+    renderMetodos();
+  }
+  renderLista();
+};
+
+/* ════════════════════════════
+   SEMÁFORO
+════════════════════════════ */
+function renderSemaforo(){
+  var pacs = (DB[SEDE]||{}).pacientes||[];
+  var c={activo:0,pendiente:0,riesgo:0};
+  pacs.forEach(function(p){ c[estadoPac(p)]++; });
+  document.getElementById('sem-act').textContent = c.activo;
+  document.getElementById('sem-pen').textContent = c.pendiente;
+  document.getElementById('sem-rie').textContent = c.riesgo;
+}
+
+function filtrarSem(est){
+  FILTRO = (FILTRO===est)?null:est;
+  setTab('todos', document.querySelectorAll('.tab')[2]);
+}
+
+/* ════════════════════════════
+   RESUMEN FINANCIERO
+════════════════════════════ */
+function setPeriodo(p, el){
+  PERIODO = p;
+  document.querySelectorAll('#periodo-tabs .tab').forEach(function(b){b.classList.remove('on');});
+  if(el) el.classList.add('on');
+  renderResumen();
+  renderMetodos();
+}
+
+function getSesionesDelPeriodo(){
+  var pacs = (DB[SEDE]||{}).pacientes||[];
+  var todas = [];
+  pacs.forEach(function(p){ p.sesiones.forEach(function(s){ todas.push(s); }); });
+  var hoy = new Date(HOY);
+  var lunes = new Date(hoy); lunes.setDate(hoy.getDate()-(hoy.getDay()===0?6:hoy.getDay()-1));
+  var primerMes = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+  return todas.filter(function(s){
+    var f = new Date(s.fecha);
+    if(PERIODO==='dia')    return s.fecha===HOY;
+    if(PERIODO==='semana') return f>=lunes && f<=hoy;
+    return f>=primerMes && f<=hoy;
+  });
+}
+
+function renderResumen(){
+  var sess  = getSesionesDelPeriodo();
+  var pacs  = (DB[SEDE]||{}).pacientes||[];
+  var total = sess.reduce(function(a,s){return a+s.valor;},0);
+  var falH  = ((DB[SEDE]||{}).faltas_hoy||[]).length;
+  var noAg  = pacs.filter(function(p){return estadoPac(p)==='pendiente';}).length;
+  var cont  = document.getElementById('stats-fin'); cont.innerHTML='';
+  var labels = {dia:'hoy', semana:'esta semana', mes:'este mes'};
+  var lbl = labels[PERIODO];
+  [{v:fmt(total), l:'Ingresos '+lbl,    c:'sc-go'},
+   {v:sess.length,l:'Atenciones '+lbl,  c:'sc-b'},
+   {v:falH,       l:'Faltas hoy',        c:'sc-r'},
+   {v:noAg,       l:'Sin agendar cita',  c:'sc-y'}
+  ].forEach(function(it){
+    var d=document.createElement('div'); d.className='sc '+it.c;
+    d.innerHTML='<div class="sv">'+it.v+'</div><div class="sl">'+it.l+'</div>';
+    cont.appendChild(d);
+  });
+}
+
+function renderMetodos(){
+  var sess = getSesionesDelPeriodo();
+  var map  = {};
+  var total = 0;
+  sess.forEach(function(s){ map[s.pago]=(map[s.pago]||0)+s.valor; total+=s.valor; });
+  var cont = document.getElementById('metodos-pago'); cont.innerHTML='';
+  Object.keys(map).sort(function(a,b){return map[b]-map[a];}).forEach(function(m){
+    var pct = total>0?Math.round(map[m]/total*100):0;
+    var div = document.createElement('div');
+    div.innerHTML=
+      '<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px">'+
+        '<span style="color:var(--text-dark);font-weight:500">'+m+'</span>'+
+        '<span style="color:var(--gold-dark);font-weight:500">'+fmt(map[m])+' · '+pct+'%</span>'+
+      '</div>'+
+      '<div class="hbar"><div class="hfill" style="width:'+pct+'%"></div></div>';
+    cont.appendChild(div);
+  });
+  if(!Object.keys(map).length) cont.innerHTML='<div style="font-size:12px;color:var(--text-light)">Sin registros en este período.</div>';
+}
+
+function renderNoAgendan(){
+  var pacs = (DB[SEDE]||{}).pacientes||[];
+  var lista = pacs.filter(function(p){return estadoPac(p)==='pendiente';});
+  var cont = document.getElementById('lista-no-ag');
+  document.getElementById('no-ag-count').textContent = lista.length+' paciente'+(lista.length!==1?'s':'');
+  cont.innerHTML='';
+  if(!lista.length){ cont.innerHTML='<div style="font-size:12px;color:var(--text-light);padding:8px 0">Todas las pacientes tienen cita agendada.</div>'; return; }
+  lista.slice(0,5).forEach(function(p){
+    var ult = p.sesiones[0]||{};
+    var row = document.createElement('div'); row.className='pac-row'; row.onclick=function(){abrirDetalle(p);};
+    row.innerHTML=
+      '<div class="pac-av">'+initials(p.nombre)+'</div>'+
+      '<div style="flex:1"><div class="pac-name">'+p.nombre+'</div><div class="pac-sub">Última: '+ult.fecha+' · '+ult.servicio+'</div></div>'+
+      '<div class="ep ep-y"><div class="ep-dot" style="background:var(--yellow)"></div>Sin agendar</div>';
+    cont.appendChild(row);
+  });
+}
+
+function renderFaltasGerente(){
+  var faltas = (DB[SEDE]||{}).faltas_hoy||[];
+  var cont = document.getElementById('lista-faltas');
+  document.getElementById('faltas-count').textContent = faltas.length+' paciente'+(faltas.length!==1?'s':'');
+  cont.innerHTML='';
+  if(!faltas.length){ cont.innerHTML='<div style="font-size:12px;color:var(--text-light);padding:8px 0">Ninguna falta registrada hoy.</div>'; return; }
+  var motivos = {no_aviso:'No avisó',cancelo:'Canceló',enfermedad:'Enfermedad',otro:'Otro'};
+  faltas.forEach(function(f){
+    var row = document.createElement('div'); row.className='pac-row';
+    row.innerHTML=
+      '<div class="pac-av" style="background:var(--red-l);color:var(--red);border-color:var(--red-b)">'+initials(f.nombre)+'</div>'+
+      '<div style="flex:1"><div class="pac-name">'+f.nombre+'</div><div class="pac-sub">'+(f.cel||'')+'</div></div>'+
+      '<div class="ep ep-r"><div class="ep-dot" style="background:var(--red)"></div>'+(motivos[f.motivo]||'Falta')+'</div>';
+    cont.appendChild(row);
+  });
+}
+
+/* ════════════════════════════
+   BÚSQUEDA POR CELULAR
+════════════════════════════ */
+function limpiarCel(c){ return c.replace(/\D/g,''); }
+
+function buscarPorCelular(val){
+  var cel = limpiarCel(val);
+  var found = document.getElementById('cel-found');
+  if(cel.length < 7){ found.classList.remove('show'); return; }
+  var pacs = (DB[SEDE]||{}).pacientes||[];
+  var pac  = pacs.find(function(p){ return limpiarCel(p.cel)===cel; });
+  if(pac){
+    var numSes = pac.sesiones.length;
+    var ult    = pac.sesiones[0]||{};
+    var dias   = pac.proximaCita ? diasParaCita(pac.proximaCita) : null;
+    var citaTxt = dias!==null
+      ? (dias>0 ? 'Próxima cita en '+dias+' día'+(dias!==1?'s':'')+' ('+pac.proximaCita+')'
+        : dias===0 ? 'Su cita es HOY'
+        : 'Cita vencida hace '+Math.abs(dias)+' días')
+      : 'Sin cita agendada';
+
+    found.innerHTML=
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'+
+        '<div class="pac-av" style="width:38px;height:38px;font-size:13px">'+initials(pac.nombre)+'</div>'+
+        '<div style="flex:1">'+
+          '<div style="font-size:13px;font-weight:500;color:var(--text-dark)">'+pac.nombre+'</div>'+
+          '<div style="font-size:10px;color:var(--text-light)">'+pac.cel+' · Sede '+pac.sede+'</div>'+
+        '</div>'+
+        '<div class="ses-badge">Sesión '+( numSes+1)+'</div>'+
+      '</div>'+
+      '<div style="font-size:11px;color:var(--text-mid);background:var(--cream);border-radius:8px;padding:8px 11px;margin-bottom:10px">'+
+        '<div style="margin-bottom:3px"><strong>Última sesión:</strong> '+ult.fecha+' · '+ult.servicio+' · '+fmt(ult.valor)+'</div>'+
+        '<div><strong>Seguimiento:</strong> '+citaTxt+'</div>'+
+        '<div style="margin-top:3px"><strong>Total sesiones:</strong> '+numSes+'</div>'+
+      '</div>'+
+      '<button class="sav" style="margin-top:0" onclick="seleccionarPaciente(\''+pac.cel+'\')">Registrar sesión '+( numSes+1)+' para '+pac.nombre+'</button>';
+    found.classList.add('show');
+  } else if(cel.length >= 10){
+    found.innerHTML=
+      '<div style="font-size:11px;color:var(--text-light);margin-bottom:8px">No encontramos esta paciente. ¿Es nueva?</div>'+
+      '<button class="sav" style="margin-top:0;background:var(--green)" onclick="mostrarFormNuevo(\''+cel+'\')">Registrar como paciente nueva</button>';
+    found.classList.add('show');
+  } else {
+    found.classList.remove('show');
+  }
+}
+
+function seleccionarPaciente(cel){
+  var pacs = (DB[SEDE]||{}).pacientes||[];
+  PAC_ACTIVA = pacs.find(function(p){ return limpiarCel(p.cel)===limpiarCel(cel); });
+  if(!PAC_ACTIVA) return;
+  var numSes = PAC_ACTIVA.sesiones.length+1;
+  document.getElementById('datos-nueva').style.display='none';
+  document.getElementById('form-titulo').textContent = 'Registrar sesión '+numSes+' — '+PAC_ACTIVA.nombre;
+  document.getElementById('form-sub').textContent    = 'Sede '+SEDE+' · '+PAC_ACTIVA.cel;
+  document.getElementById('ses-badge').textContent   = 'Sesión '+numSes;
+  document.getElementById('ses-badge').style.display = 'inline-flex';
+  document.getElementById('form-registro').classList.add('show');
+  document.getElementById('form-falta').classList.remove('show');
+  window.scrollTo({top:document.getElementById('form-registro').offsetTop-70, behavior:'smooth'});
+}
+
+function mostrarFormNuevo(cel){
+  PAC_ACTIVA = null;
+  document.getElementById('datos-nueva').style.display='block';
+  if(cel) document.getElementById('f-cel').value = cel;
+  document.getElementById('form-titulo').textContent = 'Registrar nueva paciente';
+  document.getElementById('form-sub').textContent    = 'Sede '+SEDE;
+  document.getElementById('ses-badge').style.display = 'none';
+  document.getElementById('form-registro').classList.add('show');
+  document.getElementById('form-falta').classList.remove('show');
+  window.scrollTo({top:document.getElementById('form-registro').offsetTop-70, behavior:'smooth'});
+}
+
+function cerrarForm(){
+  document.getElementById('form-registro').classList.remove('show');
+  document.getElementById('cel-found').classList.remove('show');
+  document.getElementById('cel-buscar').value='';
+  PAC_ACTIVA = null;
+}
+
+function toggleFechaCita(v){
+  document.getElementById('fld-fecha').style.display = v==='si'?'block':'none';
+}
+
+/* ════════════════════════════
+   GUARDAR ATENCIÓN
+════════════════════════════ */
+function guardarAtencion(){
+  var entrada  = document.getElementById('f-entrada').value;
+  var salida   = document.getElementById('f-salida').value;
+  var servicio = document.getElementById('f-servicio').value;
+  var zonas    = document.getElementById('f-zonas').value.trim();
+  var valor    = document.getElementById('f-valor').value;
+  var pago     = document.getElementById('f-pago').value;
+  var cita     = document.getElementById('f-cita').value;
+  var fCita    = document.getElementById('f-fecha-cita').value;
+  var notas    = document.getElementById('f-notas').value.trim();
+
+  if(!entrada||!salida||!servicio||!valor||!pago||!cita){
+    alert('Completa todos los campos obligatorios (*)'); return;
+  }
+
+  if(!DB[SEDE]) DB[SEDE]={pacientes:[],faltas_hoy:[]};
+
+  var sesion = {
+    id: Date.now(), fecha:HOY, entrada:entrada, salida:salida,
+    servicio:servicio, zonas:zonas, valor:parseInt(valor),
+    pago:pago, cita:cita, notas:notas, atendio:CU.name
+  };
+
+  if(PAC_ACTIVA){
+    /* Agregar sesión a paciente existente */
+    PAC_ACTIVA.sesiones.unshift(sesion);
+    if(cita==='si') PAC_ACTIVA.proximaCita = fCita;
+    else if(cita==='no') PAC_ACTIVA.proximaCita = '';
+  } else {
+    /* Nueva paciente */
+    var nombre = document.getElementById('f-nombre').value.trim();
+    var cel    = limpiarCel(document.getElementById('f-cel').value);
+    if(!nombre||!cel){ alert('Ingresa nombre y celular de la paciente.'); return; }
+    var nueva = {
+      cel:cel, nombre:nombre, sede:SEDE,
+      proximaCita: cita==='si'?fCita:'',
+      sesiones:[sesion], faltas:[]
+    };
+    DB[SEDE].pacientes.unshift(nueva);
+  }
+
+  /* Limpiar */
+  cerrarForm();
+  ['f-salida','f-zonas','f-valor','f-notas','f-fecha-cita'].forEach(function(id){ document.getElementById(id).value=''; });
+  ['f-servicio','f-pago','f-cita'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('fld-fecha').style.display='none';
+
+  if(CU.rol==='gerente'){ renderSemaforo(); renderResumen(); renderNoAgendan(); renderFaltasGerente(); renderMetodos(); }
+  setTab('hoy', document.querySelector('.tab'));
+  alert('Atención registrada correctamente.');
+}
+
+/* ════════════════════════════
+   REGISTRAR FALTA
+════════════════════════════ */
+function buscarFalta(val){
+  var cel  = limpiarCel(val);
+  var pacs = (DB[SEDE]||{}).pacientes||[];
+  var pac  = pacs.find(function(p){ return limpiarCel(p.cel)===cel; });
+  if(pac) document.getElementById('ff-nombre').value = pac.nombre;
+}
+
+function guardarFalta(){
+  var cel    = limpiarCel(document.getElementById('ff-cel').value);
+  var nombre = document.getElementById('ff-nombre').value.trim();
+  var motivo = document.getElementById('ff-motivo').value;
+  if(!nombre){ alert('Ingresa el nombre de la paciente.'); return; }
+  if(!DB[SEDE]) DB[SEDE]={pacientes:[],faltas_hoy:[]};
+  DB[SEDE].faltas_hoy.push({cel:cel, nombre:nombre, motivo:motivo});
+  document.getElementById('ff-cel').value='';
+  document.getElementById('ff-nombre').value='';
+  document.getElementById('form-falta').classList.remove('show');
+  if(CU.rol==='gerente'){ renderFaltasGerente(); renderResumen(); }
+  alert('Falta registrada: '+nombre);
+}
+
+/* ════════════════════════════
+   LISTA DE PACIENTES
+════════════════════════════ */
+function setTab(tab, el){
+  TAB=tab; FILTRO=null;
+  document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('on');});
+  if(el) el.classList.add('on');
+  var t={hoy:'Pacientes de hoy',semana:'Esta semana',todos:'Todos'};
+  document.getElementById('lista-titulo').textContent = t[tab];
+  renderLista();
+}
+
+function renderLista(){
+  var pacs  = (DB[SEDE]||{}).pacientes||[];
+  var busq  = document.getElementById('buscador').value.toLowerCase();
+  var hoy   = new Date(HOY);
+  var lunes = new Date(hoy); lunes.setDate(hoy.getDate()-(hoy.getDay()===0?6:hoy.getDay()-1));
+
+  /* Filtrar por tab — buscar pacientes que tienen sesiones en ese período */
+  var filtered = pacs.filter(function(p){
+    if(FILTRO) return estadoPac(p)===FILTRO;
+    if(TAB==='todos') return true;
+    return p.sesiones.some(function(s){
+      var f=new Date(s.fecha);
+      if(TAB==='hoy')    return s.fecha===HOY;
+      if(TAB==='semana') return f>=lunes && f<=hoy;
+      return true;
+    });
+  });
+
+  if(busq) filtered=filtered.filter(function(p){return p.nombre.toLowerCase().includes(busq);});
+
+  /* Ordenar: primero los de hoy, luego por nombre */
+  filtered.sort(function(a,b){
+    var aH = a.sesiones.some(function(s){return s.fecha===HOY;});
+    var bH = b.sesiones.some(function(s){return s.fecha===HOY;});
+    if(aH!==bH) return bH?1:-1;
+    return a.nombre.localeCompare(b.nombre);
+  });
+
+  document.getElementById('lista-count').textContent = filtered.length+' paciente'+(filtered.length!==1?'s':'');
+  var cont = document.getElementById('lista-pacientes'); cont.innerHTML='';
+
+  if(!filtered.length){
+    cont.innerHTML='<div style="text-align:center;padding:24px 0;font-size:12px;color:var(--text-light)">No hay pacientes para mostrar.</div>';
+    return;
+  }
+
+  filtered.forEach(function(p){
+    var est  = estadoPac(p);
+    var info = EP[est];
+    var ult  = p.sesiones[0]||{};
+    var ultHoy = p.sesiones.filter(function(s){return s.fecha===HOY;});
+    var sesHoy = ultHoy[0]||ult;
+    var numSes = p.sesiones.length;
+    var dias   = p.proximaCita?diasParaCita(p.proximaCita):null;
+    var diasTxt = dias!==null
+      ? (dias>0?'Cita en '+dias+'d':dias===0?'Cita HOY':'Cita vencida '+Math.abs(dias)+'d')
+      : '';
+
+    var row = document.createElement('div'); row.className='pac-row'; row.onclick=function(){abrirDetalle(p);};
+    row.innerHTML=
+      '<div class="pac-av">'+initials(p.nombre)+'</div>'+
+      '<div style="flex:1;min-width:0">'+
+        '<div class="pac-name">'+p.nombre+'</div>'+
+        '<div class="pac-sub">'+sesHoy.servicio+' · Sesión '+numSes+(sesHoy.fecha===HOY?' · Hoy':' · '+sesHoy.fecha)+'</div>'+
+      '</div>'+
+      '<div class="pac-cols">'+
+        (sesHoy.fecha===HOY?
+          '<div class="pac-col"><div class="pcl">Horario</div><div class="pcv">'+sesHoy.entrada+' – '+sesHoy.salida+'</div></div>'+
+          '<div class="pac-col"><div class="pcl">Duración</div><div class="pcv">'+duracion(sesHoy.entrada,sesHoy.salida)+'</div></div>'+
+          '<div class="pac-col"><div class="pcl">Pagó</div><div class="pcv">'+fmt(sesHoy.valor)+'</div></div>'+
+          '<div class="pac-col"><div class="pcl">Método</div><div class="pcv">'+sesHoy.pago+'</div></div>'
+        : ''+
+          '<div class="pac-col"><div class="pcl">Última sesión</div><div class="pcv">'+ult.fecha+'</div></div>'+
+          '<div class="pac-col"><div class="pcl">Sesiones</div><div class="pcv">'+numSes+'</div></div>'
+        )+
+        (diasTxt?'<div class="pac-col"><div class="pcl">Próxima cita</div><div class="pcv" style="color:'+(dias<3&&dias>=0?'var(--orange)':dias<0?'var(--red)':'var(--text-dark)')+'">'+diasTxt+'</div></div>':'')+
+      '</div>'+
+      '<div class="'+info.cls+'" style="margin-left:8px"><div class="ep-dot" style="'+info.dot+'"></div>'+info.txt+'</div>';
+    cont.appendChild(row);
+  });
+}
+
+/* ════════════════════════════
+   MODAL DETALLE
+════════════════════════════ */
+function abrirDetalle(p){
+  var est  = estadoPac(p);
+  var info = EP[est];
+  var ult  = p.sesiones[0]||{};
+  var dias = p.proximaCita?diasParaCita(p.proximaCita):null;
+
+  document.getElementById('det-nombre').textContent = p.nombre;
+  document.getElementById('det-sub').textContent    = p.cel+' · Sede '+p.sede+' · '+p.sesiones.length+' sesión'+(p.sesiones.length!==1?'es':'');
+
+  /* Pills */
+  var pillsHtml = '<div class="'+info.cls+'"><div class="ep-dot" style="'+info.dot+'"></div>'+info.txt+'</div>';
+  pillsHtml += '<div class="ses-badge">'+p.sesiones.length+' sesión'+(p.sesiones.length!==1?'es':'')+'</div>';
+  document.getElementById('det-pills').innerHTML = pillsHtml;
+
+  /* Countdown cita */
+  var ccd = document.getElementById('det-cita-countdown');
+  if(dias!==null){
+    ccd.style.display='block';
+    var cv = document.getElementById('det-countdown-val');
+    cv.textContent = dias>0?dias+' día'+(dias!==1?'s':'')+' para su cita':dias===0?'Su cita es HOY':'Cita vencida hace '+Math.abs(dias)+' día'+(Math.abs(dias)!==1?'s':'');
+    cv.className   = 'countdown'+(dias<=2&&dias>=0?' urgent':dias<=5?' soon':'');
+    document.getElementById('det-countdown-fecha').textContent = p.proximaCita;
+  } else { ccd.style.display='none'; }
+
+  /* Historial sesiones */
+  var sesHtml='';
+  p.sesiones.slice(0,5).forEach(function(s,i){
+    sesHtml+=
+      '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:.5px solid var(--border-gold)">'+
+        '<div class="ses-badge">Sesión '+(p.sesiones.length-i)+'</div>'+
+        '<div style="flex:1;font-size:11px;color:var(--text-mid)">'+s.fecha+' · '+s.servicio+'</div>'+
+        '<div style="font-size:11px;font-weight:500;color:var(--text-dark)">'+fmt(s.valor)+'</div>'+
+      '</div>';
+  });
+  if(p.faltas&&p.faltas.length){
+    p.faltas.forEach(function(f){
+      sesHtml+='<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:.5px solid var(--border-gold)">'+
+        '<div class="ep ep-r"><div class="ep-dot" style="background:var(--red)"></div>Falta</div>'+
+        '<div style="font-size:11px;color:var(--text-light)">'+f.fecha+'</div></div>';
+    });
+  }
+  document.getElementById('det-sesiones').innerHTML = sesHtml||'<div style="font-size:12px;color:var(--text-light)">Sin historial.</div>';
+
+  /* Última sesión detalle */
+  var rows = [
+    ['Servicio',     ult.servicio||'—'],
+    ['Zonas',        ult.zonas||'—'],
+    ['Hora entrada', ult.entrada||'—'],
+    ['Hora salida',  ult.salida||'—'],
+    ['Duración',     duracion(ult.entrada,ult.salida)],
+    ['Valor pagado', fmt(ult.valor||0)],
+    ['Método pago',  ult.pago||'—'],
+    ['Atendió',      ult.atendio||'—']
+  ];
+  var rHtml='';
+  rows.forEach(function(r){ rHtml+='<div class="det-row"><span class="det-l">'+r[0]+'</span><span class="det-v">'+r[1]+'</span></div>'; });
+  document.getElementById('det-rows').innerHTML=rHtml;
+
+  /* Notas */
+  var nw=document.getElementById('det-notas-w');
+  if(ult.notas&&ult.notas.trim()){ nw.style.display='block'; document.getElementById('det-notas').textContent=ult.notas; }
+  else nw.style.display='none';
+
+  document.getElementById('modal-det').classList.add('show');
+}
+
+function cerrarModal(){ document.getElementById('modal-det').classList.remove('show'); }
+document.getElementById('modal-det').addEventListener('click',function(e){ if(e.target===this) cerrarModal(); });
+</script>
+</body>
+</html>
